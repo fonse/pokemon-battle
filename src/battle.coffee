@@ -1,12 +1,13 @@
 Type = require './type'
 Move = require './move'
 Pokemon = require './pokemon'
+Log = require './log'
 
 class Battle
   constructor: (@pkmn1, @pkmn2) ->
   
   start: ->
-    log = ""
+    log = new Log
     winner = null
     until winner?
       # Choose moves
@@ -34,14 +35,14 @@ class Battle
       # Start the battle
       semiturns = 0
       until semiturns == 2 or winner?
-        messages = [this.upperFirst attackerPokemon.trainerAndName() + " used " + attackerMove.name + "!"]
+        log.message attackerPokemon.trainerAndName() + " used " + attackerMove.name + "!"
         if Math.random() * 100 > attackerMove.accuracy
-          messages.push(this.upperFirst attackerPokemon.trainerAndName() + "'s attack missed!")
+          log.message attackerPokemon.trainerAndName() + "'s attack missed!"
 
         else
           effectiveness = attackerMove.type.effectivenessAgainst defenderPokemon.types
           if effectiveness == 0
-            messages.push("It has no effect!")
+            log.message "It has no effect!"
           else
             hits = attackerMove.hits()
             hit = 0
@@ -52,30 +53,30 @@ class Battle
               damage = this.calculateDamage attackerMove, attackerPokemon, defenderPokemon, critical, random
               damage = defenderPokemon.hp if damage > defenderPokemon.hp
               
-              messages.push("It's a critical hit!") if critical
-              messages.push("It's super effective!") if effectiveness > 1
-              messages.push("It's not very effective...") if effectiveness < 1
-              messages.push(this.upperFirst defenderPokemon.trainerAndName() + " is hit for " + damage + " HP (" + Math.round(damage / defenderPokemon.maxHp * 100) + "%)")
+              log.message "It's a critical hit!" if critical
+              log.message "It's super effective!" if effectiveness > 1
+              log.message "It's not very effective..." if effectiveness < 1
+              log.message defenderPokemon.trainerAndName() + " is hit for " + damage + " HP (" + Math.round(damage / defenderPokemon.maxHp * 100) + "%)"
               
               defenderPokemon.hp -= damage
               if (defenderPokemon.hp <= 0)
-                messages.push(this.upperFirst defenderPokemon.trainerAndName() + " fained!")
+                log.message defenderPokemon.trainerAndName() + " fained!"
                 winner = attackerPokemon
                 
-              attackerMove.afterDamage attackerPokemon, defenderPokemon, damage, messages
+              attackerMove.afterDamage attackerPokemon, defenderPokemon, damage, log
               if (attackerPokemon.hp <= 0)
-                messages.push(this.upperFirst attackerPokemon.trainerAndName() + " fained!")
+                log.message attackerPokemon.trainerAndName() + " fained!"
                 winner = defenderPokemon unless winner?
         
-        log += messages.join("\n") + "\n\n";
+        log.endAttack()
         [attackerPokemon, defenderPokemon] = [defenderPokemon, attackerPokemon]
         [attackerMove, defenderMove] = [defenderMove, attackerMove]
         semiturns++
     
-      log += "\n";
+      log.endTurn()
     
     winner.hp = 0 if winner.hp < 0  
-    log += "The winner is " + winner.trainerAndName() + " with " + winner.hp + " HP (" + Math.round(winner.hp / winner.maxHp * 100) + "%) remaining!"
+    log.message "The winner is " + winner.trainerAndName() + " with " + winner.hp + " HP (" + Math.round(winner.hp / winner.maxHp * 100) + "%) remaining!"
     return log
     
   chooseMove: (attacker, defender) ->
@@ -103,8 +104,5 @@ class Battle
     
     return Math.round (0.88 * (attack / defense) * move.power + 2 ) * stab * type * crit * random
     
-  upperFirst: (word) ->
-    return word.charAt(0).toUpperCase() + word.slice(1)
-
 
 module.exports = Battle

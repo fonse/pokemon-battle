@@ -83,7 +83,7 @@ class Move
       when 45, 78 then 2
       else 1
   
-  afterDamage: (attacker, defender, damage, messages) ->
+  afterDamage: (attacker, defender, damage, log) ->
     switch @effect
       when 4 then selfHeal = this.heal damage
       when 49, 199, 254, 263, 270 then selfDamage = this.recoil damage
@@ -92,12 +92,12 @@ class Move
     if selfHeal? and attacker.hp < attacker.maxHp
       selfHeal = Math.min(Math.round(selfHeal), attacker.maxHp - attacker.hp)
       attacker.hp += selfHeal
-      messages.push(attacker.trainerAndName() + " healed " +  selfHeal + " HP (" + Math.round(selfHeal / attacker.maxHp * 100) + "%)!")
+      log.message attacker.trainerAndName() + " healed " +  selfHeal + " HP (" + Math.round(selfHeal / attacker.maxHp * 100) + "%)!"
     
     if selfDamage?
       selfDamage = Math.round(selfDamage)
       attacker.hp -= selfDamage
-      messages.push(attacker.trainerAndName() + " is hurt " +  selfDamage + " HP (" + Math.round(selfDamage / attacker.maxHp * 100) + "%) by recoil!")
+      log.message attacker.trainerAndName() + " is hurt " +  selfDamage + " HP (" + Math.round(selfDamage / attacker.maxHp * 100) + "%) by recoil!"
 
   toString: ->
     return @name + " (" + @type.name + " - " + @power + " power - " + @accuracy + " accuracy)"
