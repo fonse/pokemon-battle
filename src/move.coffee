@@ -23,14 +23,26 @@ class Move
     @effect = move.effect
     @damageClass = move.damage_class
   
-  blacklisted: -> 
-    blacklist = [8, 9, 27, 28, 39, 40, 76, 81, 105, 136, 146, 149, 152, 156, 159, 160, 171, 183, 191, 205, 230, 247, 249, 256, 257, 273, 293, 298, 312, 332, 333, 46]
+  blacklisted: ->
+    blacklist = [
+      # Multi-turn
+      27, 28, 40, 76, 81, 146, 149, 152, 160, 256, 257, 273, 312, 332, 333, 366
+      
+      # Stat Modifications
+      183, 205, 230, 335,
+      
+      # Easier Effects
+      46, 298, 318,
+      
+      # Harder Effects
+      8, 9, 39, 105, 136, 159, 171, 191, 249, 293, 339,
+    ]
     return @damageClass == @constructor.DAMAGE_NONE or @effect in blacklist or @power < 2
   
   scoreModifier: ->
     base = switch @effect
       # Heal
-      when 4 then 1.25
+      when 4, 348 then 1.25
       
       # Recoil
       when 49, 199, 254, 263 then 0.85
@@ -75,7 +87,8 @@ class Move
       else 0
       
   heal: (damage) ->
-    if @effect == 4 then damage / 2 else 0
+    #TODO Effect 353 heals 75% of damage dealt
+    if @effect in [4, 348] then damage / 2 else 0
     
   hits: (damage) ->
     switch @effect
@@ -85,7 +98,7 @@ class Move
   
   afterDamage: (attacker, defender, damage, log) ->
     switch @effect
-      when 4 then selfHeal = this.heal damage
+      when 4, 348 then selfHeal = this.heal damage
       when 49, 199, 254, 263, 270 then selfDamage = this.recoil damage
       when 255 then selfDamage = attacker.maxHp / 4
     
