@@ -18,14 +18,14 @@ class Move
     @id = move.id
     @name = move.name
     @type = new Type move.type
-    @power = move.power
+    @basePower = move.power
     @accuracy = if move.accuracy > 0 then move.accuracy else 100
     @priority = move.priority
     @effect = Effect.make move.effect
     @damageClass = move.damage_class
   
   blacklisted: ->
-    return @damageClass == @constructor.DAMAGE_NONE or @effect.blacklisted() or @power < 2
+    return @damageClass == @constructor.DAMAGE_NONE or @effect.blacklisted() or @basePower < 2
   
   buildMultiplier: ->
     base = @effect.buildMultiplier()
@@ -51,6 +51,9 @@ class Move
 
     return if effectiveness? then effectiveness else @type.effectivenessAgainst defender.types
   
+  power: ->
+    return @effect.power(@basePower)
+  
   hits: ->
     return @effect.hits()
   
@@ -58,7 +61,7 @@ class Move
     @effect.afterDamage attacker, defender, damage, log
 
   toString: ->
-    return @name + " (" + @type.name + " - " + @power + " power - " + @accuracy + " accuracy)"
+    return @name + " (" + @type.name + " - " + @basePower + " power - " + @accuracy + " accuracy)"
 
 
 module.exports = Move

@@ -49,7 +49,7 @@ class Pokemon
       
       stat = if move.damageClass == Move.DAMAGE_PHYSICAL then @attack else @spattack
       
-      move.score = move.power * typeMultiplier * stat * move.accuracy * move.buildMultiplier()
+      move.score = move.power() * typeMultiplier * stat * move.accuracy * move.buildMultiplier()
       @scoredMoves.push(move)
     
     @scoredMoves.sort (a,b) -> b.score - a.score
