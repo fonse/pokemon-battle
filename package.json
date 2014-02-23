@@ -1,0 +1,40 @@
+{
+  "name": "pokemon-battle",
+  "version": "1.0.0",
+
+  "author": "fonse",
+
+  "keywords": [
+    "pokemon"
+  ],
+
+  "description": "Pokemon battle simulator originally built as a fun hubot command",
+
+  "licenses": [{
+    "type": "MIT",
+    "url": "https://raw.github.com/fonse/pokemon-battle/master/LICENSE"
+  }],
+
+  "repository" : {
+    "type": "git",
+    "url": "https://github.com/fonse/pokemon-battle"
+  },
+  
+  "bugs": "https://github.com/fonse/pokemon-battle/issues",
+
+  "dependencies": {
+    "coffee-script": "latest"
+  },
+  
+  "devDependencies": {
+    "csv": "> 0.3"
+  },
+
+  "engines": {
+    "node": ">= 0.8.x",
+    "npm":  ">= 1.1.x"
+  },
+
+  "main": "./index"
+}
+
