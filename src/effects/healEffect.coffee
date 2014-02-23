@@ -18,7 +18,8 @@ class HealEffect extends DefaultEffect
         return 1
   
   afterDamage: (attacker, defender, damage, log) ->
-    heal = Math.min(this.heal damage, attacker.maxHp - attacker.hp)
+    heal = Math.min((this.heal damage), attacker.maxHp - attacker.hp)
+    return if heal == 0
     
     attacker.hp += heal
     log.message attacker.trainerAndName() + " healed " +  heal + " HP (" + Math.round(heal / attacker.maxHp * 100) + "%)!"
