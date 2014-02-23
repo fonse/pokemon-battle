@@ -12,6 +12,7 @@ class Pokemon
     @name = pokemon.name
     @trainer = trainer
     @types = (new Type typeId for typeId in pokemon.types)
+    @weight = pokemon.weight / 10
     
     @maxHp = 141 + 2 * pokemon.stats.hp
     @attack = this.statFormula pokemon.stats.attack
@@ -42,14 +43,15 @@ class Pokemon
     for move in moves
       continue if move.blacklisted()
       
-      if move.type.id in (@types.map (type) -> type.id)
-        typeMultiplier = 1.5
-      else
-        typeMultiplier = if move.type.id in helpfulTypes then 1.1 else 1
+      typeMultiplier = switch
+        when move.type.id in (@types.map (type) -> type.id) then 1.5
+        when move.type.id in helpfulTypes then 1.1
+        when move.type.id == 1 then 0.9
+        else 1
       
       stat = if move.damageClass == Move.DAMAGE_PHYSICAL then @attack else @spattack
       
-      move.score = move.power() * typeMultiplier * stat * move.accuracy * move.buildMultiplier()
+      move.score = move.power(this) * typeMultiplier * stat * move.accuracy * move.buildMultiplier()
       @scoredMoves.push(move)
     
     @scoredMoves.sort (a,b) -> b.score - a.score

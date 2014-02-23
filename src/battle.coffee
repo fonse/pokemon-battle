@@ -100,7 +100,7 @@ class Battle
     type = move.effectiveness attacker, defender
     crit = if critical then 1.5 else 1
     
-    return Math.round (0.88 * (attack / defense) * move.power() + 2 ) * stab * type * crit * random
+    return Math.round (0.88 * (attack / defense) * move.power(attacker, defender) + 2 ) * stab * type * crit * random
     
 
 module.exports = Battle
