@@ -9,6 +9,8 @@ class DefaultEffect
   
   afterDamage: (attacker, defender, damage, log) ->
   
+  effectiveness: (attacker, defender) ->
+  
   blacklisted: ->
     blacklist = [
       # Multi-turn

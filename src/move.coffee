@@ -46,6 +46,11 @@ class Move
     
     return base
   
+  effectiveness: (attacker, defender) ->
+    effectiveness = @effect.effectiveness attacker, defender
+
+    return if effectiveness? then effectiveness else @type.effectivenessAgainst defender.types
+  
   hits: ->
     return @effect.hits()
   

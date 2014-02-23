@@ -40,7 +40,7 @@ class Battle
           log.message attackerPokemon.trainerAndName() + "'s attack missed!"
 
         else
-          effectiveness = attackerMove.type.effectivenessAgainst defenderPokemon.types
+          effectiveness = attackerMove.effectiveness attackerPokemon, defenderPokemon
           if effectiveness == 0
             log.message "It has no effect!"
           else
@@ -99,7 +99,7 @@ class Battle
     defense = if move.damageClass == Move.DAMAGE_PHYSICAL then defender.defense else defender.spdefense
     
     stab = if move.type.id in (attacker.types.map (type) -> type.id) then 1.5 else 1
-    type = move.type.effectivenessAgainst defender.types
+    type = move.effectiveness attacker, defender
     crit = if critical then 2 else 1
     
     return Math.round (0.88 * (attack / defense) * move.power + 2 ) * stab * type * crit * random
