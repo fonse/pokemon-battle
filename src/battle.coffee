@@ -100,7 +100,7 @@ class Battle
     
     stab = if move.type.id in (attacker.types.map (type) -> type.id) then 1.5 else 1
     type = move.effectiveness attacker, defender
-    crit = if critical then 2 else 1
+    crit = if critical then 1.5 else 1
     
     return Math.round (0.88 * (attack / defense) * move.power + 2 ) * stab * type * crit * random
     
