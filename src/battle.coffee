@@ -7,78 +7,76 @@ class Battle
   constructor: (@pkmn1, @pkmn2) ->
   
   start: ->
-    log = new Log
-    winner = null
-    until winner?
-      # Choose moves
-      move1 = this.chooseMove @pkmn1, @pkmn2
-      move2 = this.chooseMove @pkmn2, @pkmn1
-      throw new Error("One of the pokemon doesn't have an attack move.") unless move1? and move2?
-      
-      # Decide who goes first
-      if move1.priority == move2.priority
-        pkmn1GoesFirst = @pkmn1.speed > @pkmn2.speed or (@pkmn1.speed == @pkmn2.speed and Math.random() > 0.5)
-      else
-        pkmn1GoesFirst = move1.priority > move2.priority
-      
-      if (pkmn1GoesFirst)
-        attackerPokemon = @pkmn1
-        attackerMove = move1
-        defenderPokemon = @pkmn2
-        defenderMove = move2
-      else
-        attackerPokemon = @pkmn2
-        attackerMove = move2
-        defenderPokemon = @pkmn1
-        defenderMove = move1
-      
-      # Start the battle
-      semiturns = 0
-      until semiturns == 2 or winner?
-        log.message attackerPokemon.trainerAndName() + " used " + attackerMove.name + "!"
-        if Math.random() * 100 > attackerMove.accuracy
-          log.message attackerPokemon.trainerAndName() + "'s attack missed!"
+    @log = new Log
+    @winner = null
+    until @winner?
+      this.nextTurn()
+    
+    @winner.hp = 0 if @winner.hp < 0  
+    @log.message "The winner is " + @winner.trainerAndName() + " with " + @winner.hp + " HP (" + Math.round(@winner.hp / @winner.maxHp * 100) + "%) remaining!"
+    return @log
+  
+  nextTurn: ->
+    # Choose moves
+    this.chooseMove @pkmn1, @pkmn2
+    this.chooseMove @pkmn2, @pkmn1
+    throw new Error("One of the pokemon doesn't have an attack move.") unless @pkmn1.move? and @pkmn2.move?
+    
+    # Decide who goes first
+    if @pkmn1.move.priority == @pkmn2.move.priority
+      pkmn1GoesFirst = @pkmn1.speed > @pkmn2.speed or (@pkmn1.speed == @pkmn2.speed and Math.random() < 0.5)
+    else
+      pkmn1GoesFirst = @pkmn1.move.priority > @pkmn2.move.priority
+    
+    if (pkmn1GoesFirst)
+      attacker = @pkmn1
+      defender = @pkmn2
+    else
+      attacker = @pkmn2
+      defender = @pkmn1
+    
+    # Perform the attacks
+    this.doAttack attacker, defender
+    this.doAttack defender, attacker unless @winner?
+    @log.endTurn()
+  
+  doAttack: (attacker, defender) ->
+    @log.message attacker.trainerAndName() + " used " + attacker.move.name + "!"
+    if Math.random() * 100 > attacker.move.accuracy
+      @log.message attacker.trainerAndName() + "'s attack missed!"
 
-        else
-          effectiveness = attackerMove.effectiveness attackerPokemon, defenderPokemon
-          if effectiveness == 0
-            log.message "It has no effect!"
-          else
-            hits = attackerMove.hits()
-            hit = 0
-            
-            until hit++ == hits or winner?
-              critical = Math.random() < 0.0625
-              random = Math.random() * (1 - 0.85) + 0.85
-              damage = this.calculateDamage attackerMove, attackerPokemon, defenderPokemon, critical, random
-              damage = defenderPokemon.hp if damage > defenderPokemon.hp
-              
-              log.message "It's a critical hit!" if critical
-              log.message "It's super effective!" if effectiveness > 1
-              log.message "It's not very effective..." if effectiveness < 1
-              log.message defenderPokemon.trainerAndName() + " is hit for " + damage + " HP (" + Math.round(damage / defenderPokemon.maxHp * 100) + "%)"
-              
-              defenderPokemon.hp -= damage
-              if (defenderPokemon.hp <= 0)
-                log.message defenderPokemon.trainerAndName() + " fained!"
-                winner = attackerPokemon
-                
-              attackerMove.afterDamage attackerPokemon, defenderPokemon, damage, log
-              if (attackerPokemon.hp <= 0)
-                log.message attackerPokemon.trainerAndName() + " fained!"
-                winner = defenderPokemon unless winner?
+    else
+      effectiveness = attacker.move.effectiveness attacker, defender
+      if effectiveness == 0
+        @log.message "It has no effect!"
+      else
+        hits = attacker.move.hits()
+        hit = 0
         
-        log.endAttack()
-        [attackerPokemon, defenderPokemon] = [defenderPokemon, attackerPokemon]
-        [attackerMove, defenderMove] = [defenderMove, attackerMove]
-        semiturns++
+        until hit++ == hits or @winner?
+          critical = Math.random() < 0.0625
+          random = Math.random() * (1 - 0.85) + 0.85
+          damage = this.calculateDamage attacker.move, attacker, defender, critical, random
+          damage = defender.hp if damage > defender.hp
+          
+          @log.message "It's a critical hit!" if critical
+          @log.message "It's super effective!" if effectiveness > 1
+          @log.message "It's not very effective..." if effectiveness < 1
+          @log.message defender.trainerAndName() + " is hit for " + damage + " HP (" + Math.round(damage / defender.maxHp * 100) + "%)"
+          
+          defender.hp -= damage
+          this.checkFaint attacker, defender
+            
+          attacker.move.afterDamage attacker, defender, damage, @log
+          this.checkFaint defender, attacker
     
-      log.endTurn()
+    @log.endAttack()
     
-    winner.hp = 0 if winner.hp < 0  
-    log.message "The winner is " + winner.trainerAndName() + " with " + winner.hp + " HP (" + Math.round(winner.hp / winner.maxHp * 100) + "%) remaining!"
-    return log
-    
+  checkFaint: (attacker, defender) ->
+    if (defender.hp <= 0)
+      @log.message defender.trainerAndName() + " fained!"
+      @winner = attacker unless @winner
+   
   chooseMove: (attacker, defender) ->
     bestMove = null
     bestDamage = -1
@@ -92,7 +90,7 @@ class Battle
         bestMove = move
         bestDamage = damage
     
-    return bestMove
+    attacker.move = bestMove
   
   calculateDamage: (move, attacker, defender, critical = false, random = 0.925) ->
     attack = if move.damageClass == Move.DAMAGE_PHYSICAL then attacker.attack else attacker.spattack
