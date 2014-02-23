@@ -1,8 +1,5 @@
-Type = require './src/type'
-Move = require './src/move'
 Pokemon = require './src/pokemon'
 Battle = require './src/battle'
-Log = require './src/log'
 
 pokemon = {}
 

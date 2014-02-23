@@ -1,5 +1,6 @@
 fs = require 'fs'
 Type = require './type'
+Effect = require './effect'
 
 class Move
   @DAMAGE_NONE = 'non-damaging'
@@ -18,99 +19,38 @@ class Move
     @name = move.name
     @type = new Type move.type
     @power = move.power
-    @accuracy = move.accuracy ? 100
+    @accuracy = if move.accuracy > 0 then move.accuracy else 100
     @priority = move.priority
-    @effect = move.effect
+    @effect = Effect.make move.effect
     @damageClass = move.damage_class
   
   blacklisted: ->
-    blacklist = [
-      # Multi-turn
-      27, 28, 40, 76, 81, 146, 149, 152, 160, 256, 257, 273, 312, 332, 333, 366
-      
-      # Stat Modifications
-      183, 205, 230, 335,
-      
-      # Easier Effects
-      46, 298, 318,
-      
-      # Harder Effects
-      8, 9, 39, 105, 136, 159, 171, 191, 249, 293, 339,
-    ]
-    return @damageClass == @constructor.DAMAGE_NONE or @effect in blacklist or @power < 2
+    return @damageClass == @constructor.DAMAGE_NONE or @effect.blacklisted() or @power < 2
   
-  scoreModifier: ->
-    base = switch @effect
-      # Heal
-      when 4, 348 then 1.25
-      
-      # Recoil
-      when 49, 199, 254, 263 then 0.85
-      when 270 then 0.5
-      
-      # Multi-hit
-      when 30 then 3.166
-      when 45, 78 then 2
-      
-      else 1
+  buildMultiplier: ->
+    base = @effect.buildMultiplier()
     
     base *= 1.33 if @priority > 0
     base *= 0.9 if @priority < 0
     
     return base
   
-  chooseModifier: (attacker, defender, damage) ->
+  battleMultiplier: (attacker, defender, damage) ->
     kill = damage >= defender.hp
   
     base = @accuracy / 100
-    base *= 1 - this.recoil(damage) / attacker.hp / 1.5
-    
-    if attacker.hp < attacker.maxHp
-      base *= 1 + this.heal(damage) / (attacker.maxHp - attacker.hp) / 1.5
-    
     if @priority > 0 and kill
       base *= 5
-    
-    if not kill  
-      switch @effect
-        # Multi-hit
-        when 30 then base *= 3.166
-        when 45, 78 then base *= 2
+      
+    base *= @effect.battleMultiplier attacker, defender, damage, kill
     
     return base
   
-  recoil: (damage) ->
-    switch @effect
-      when 49 then damage / 4
-      when 199, 254, 263 then damage / 3
-      when 270 then damage / 2
-      else 0
-      
-  heal: (damage) ->
-    #TODO Effect 353 heals 75% of damage dealt
-    if @effect in [4, 348] then damage / 2 else 0
-    
-  hits: (damage) ->
-    switch @effect
-      when 30 then [2,2,3,3,4,5][Math.floor(Math.random() * 6)]
-      when 45, 78 then 2
-      else 1
+  hits: ->
+    return @effect.hits()
   
   afterDamage: (attacker, defender, damage, log) ->
-    switch @effect
-      when 4, 348 then selfHeal = this.heal damage
-      when 49, 199, 254, 263, 270 then selfDamage = this.recoil damage
-      when 255 then selfDamage = attacker.maxHp / 4
-    
-    if selfHeal? and attacker.hp < attacker.maxHp
-      selfHeal = Math.min(Math.round(selfHeal), attacker.maxHp - attacker.hp)
-      attacker.hp += selfHeal
-      log.message attacker.trainerAndName() + " healed " +  selfHeal + " HP (" + Math.round(selfHeal / attacker.maxHp * 100) + "%)!"
-    
-    if selfDamage?
-      selfDamage = Math.round(selfDamage)
-      attacker.hp -= selfDamage
-      log.message attacker.trainerAndName() + " is hurt " +  selfDamage + " HP (" + Math.round(selfDamage / attacker.maxHp * 100) + "%) by recoil!"
+    @effect.afterDamage attacker, defender, damage, log
 
   toString: ->
     return @name + " (" + @type.name + " - " + @power + " power - " + @accuracy + " accuracy)"

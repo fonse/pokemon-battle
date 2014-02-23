@@ -86,7 +86,7 @@ class Battle
       damage = this.calculateDamage move, attacker, defender
       damage = defender.hp if defender.hp < damage 
       
-      damage *= move.chooseModifier attacker, defender, damage
+      damage *= move.battleMultiplier attacker, defender, damage
       
       if damage > bestDamage
         bestMove = move

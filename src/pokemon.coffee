@@ -32,10 +32,12 @@ class Pokemon
   statFormula: (base) -> 36 + 2 * base
   
   chooseMoves: (moves) ->
+    # Moves that are effective against this pokemon's weaknesses are slightly preferred
     helpfulTypes = []
     for weakness in (type for type in Type.all() when type.effectiveAgainst @types)
       helpfulTypes = helpfulTypes.concat (type.id for type in Type.all() when type.effectiveAgainst weakness)
     
+    # Score each move this pokemon can learn
     @scoredMoves = []
     for move in moves
       continue if move.blacklisted()
@@ -46,13 +48,13 @@ class Pokemon
         typeMultiplier = if move.type.id in helpfulTypes then 1.1 else 1
       
       stat = if move.damageClass == Move.DAMAGE_PHYSICAL then @attack else @spattack
-      effect = move.scoreModifier()
       
-      move.score = move.power * typeMultiplier * stat * move.accuracy * effect
+      move.score = move.power * typeMultiplier * stat * move.accuracy * move.buildMultiplier()
       @scoredMoves.push(move)
     
     @scoredMoves.sort (a,b) -> b.score - a.score
     
+    # And keep the best four without repeating types
     @moves = []
     typesCovered = []
     for move in @scoredMoves
@@ -61,6 +63,7 @@ class Pokemon
         typesCovered.push(move.type.id)
         break if typesCovered.length == 4
     
+    # If no valid move exists, use Struggle
     if @moves.length == 0
       @moves = [ Move.Struggle ]
 
