@@ -57,7 +57,7 @@ class Pokemon
     # Score each move this pokemon can learn
     scoredMoves = []
     for move in moves
-      continue if move.blacklisted()
+      continue if move.banned()
       this.scoreMove move
       
       scoredMoves.push(move)

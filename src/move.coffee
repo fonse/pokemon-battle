@@ -24,8 +24,8 @@ class Move
     @effect = Effect.make move.effect
     @damageClass = move.damage_class
   
-  blacklisted: ->
-    return @damageClass == @constructor.DAMAGE_NONE or @effect.blacklisted() or this.power() < 2
+  banned: ->
+    return @damageClass == @constructor.DAMAGE_NONE or @effect.banned() or this.power() < 2
   
   buildMultiplier: ->
     base = @effect.buildMultiplier()

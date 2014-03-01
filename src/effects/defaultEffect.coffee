@@ -13,22 +13,6 @@ class DefaultEffect
   
   effectiveness: (attacker, defender) ->
   
-  blacklisted: ->
-    blacklist = [
-      # Multi-turn
-      27, 28, 40, 76, 81, 146, 149, 152, 156, 160, 256, 257, 273, 312, 332, 333, 366
-      
-      # Stat Modifications
-      183, 205, 230, 335,
-      
-      # Easier Effects
-      46, 294, 298,
-      
-      # Harder Effects
-      8, 9, 39, 105, 136, 159, 171, 191, 247, 249, 293, 339,
-    ]
-    
-    return @id in blacklist
-
+  banned: -> false
 
 module.exports = DefaultEffect
