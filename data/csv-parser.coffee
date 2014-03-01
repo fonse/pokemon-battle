@@ -7,29 +7,13 @@ options = { delimiter: ',', escape: '"', columns: true }
 language = '9'
 version_group = '15'
 
-type_names = {
-  1: 'Normal',
-  2: 'Fighting',
-  3: 'Flying',
-  4: 'Poison',
-  5: 'Ground',
-  6: 'Rock',
-  7: 'Bug',
-  8: 'Ghost',
-  9: 'Steel',
-  10: 'Fire',
-  11: 'Water',
-  12: 'Grass',
-  13: 'Electric',
-  14: 'Psychic',
-  15: 'Ice',
-  16: 'Dragon',
-  17: 'Dark',
-  18: 'Fairy',
-}
-
 write_json = (filename, object) ->
   fs.writeFile __dirname + '/' + filename, JSON.stringify object, null, 2
+
+Array::unique = ->
+  output = {}
+  output[@[key]] = @[key] for key in [0...@length]
+  value for key, value of output
 
 if path?
   # Pokemon
@@ -75,8 +59,34 @@ if path?
             for row in rows
               if row.version_group_id == version_group and +row.pokemon_move_method_id < 5 +row.move_id < 10000
                 pokemons[row.pokemon_id].moves.push(+row.move_id) if pokemons[row.pokemon_id]
+            
+            csv()
+            .from.path(path + "/pokemon_species.csv", options)
+            .to.array (rows) ->
+              evolutions = {}
+              for row in rows
+                evolutions[row.id] = {
+                  id: +row.id,
+                  chain: +row.evolution_chain_id,
+                  preevolution: +row.evolves_from_species_id,
+                }
               
-            write_json 'pokemon.json', pokemons
+              csv()
+              .from.path(path + "/evolution_chains.csv", options)
+              .to.array (rows) ->
+                for row in rows
+                  chain = (evolution for id, evolution of evolutions when evolution.chain == +row.id)
+                  chain.sort (a,b) ->
+                    switch
+                      when a.preevolution == 0 or b.preevolution == a.id then -1
+                      when b.preevolution == 0 or a.preevolution == b.id then 1
+                      else 0
+                  
+                  for link in chain
+                    pokemons[link.id].moves = pokemons[link.id].moves.concat(pokemons[link.preevolution].moves) if link.preevolution != 0
+                    pokemons[link.id].moves = pokemons[link.id].moves.unique()
+                  
+                write_json 'pokemon.json', pokemons
   
   
   # Moves
