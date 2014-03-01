@@ -93,7 +93,10 @@ The winner is the foe's Audino with 82 HP (24%) remaining!
 ```
 
 For the first move, both pokemon went in guns blazing with the moves that would deal the most damage.
+
 However, for the second move Sawsbuck at nearly half HP favored the healing move Horn Leech over the recoil move Double-Edge, while Audino prefered Ice Beam over Fire Blast because, while both moves would have killed the opponent, Ice Beam had a higher accuracy.
+
+Note that since the implementation of Jump Kick, Sawsbuck will use this move against Audino. I'll leave this example, however, because it showcases several of the many situations that can arise during a battle.
 
 ## Future Development
 The following elements are still unsopported, but I'd like to include them in future versions.
