@@ -20,7 +20,7 @@ if path?
       if row.move_effect_id < 10000
         effects[row.move_effect_id] = {
           id: +row.move_effect_id
-          effect: row.short_effect.replace(/\[(.*?)\]{.+?:(.+?)}/g, (match, name, href) -> if name.length > 0 then name else href),
+          effect: row.short_effect.replace(/\$effect_chance% /g, '').replace(/\[(.*?)\]{.+?:(.+?)}/g, (match, name, href) -> if name.length > 0 then name else href),
           damages: false,
           state: null,
           examples: [],
@@ -39,17 +39,17 @@ if path?
     
     output = ''
     output += "## Supported Effects ##\n"
-    output += "The following moves are fully supported:\n\n"
+    output += "The following moves are fully supported.\n\n"
     for id, effect of effects
       output += printEffect effect if effect.state == 'supported'
       
     output += "\n## Partly Supported Effects ##\n"
-    output += "The following moves can be used but not all side effects will take place:\n\n"
+    output += "The following moves can be used but not all side effects will take place.\n\n"
     for id, effect of effects
       output += printEffect effect if effect.state == 'unsupported'
       
     output += "\n## Banned Effects ##\n"
-    output += "The following moves cannot be used in battle:\n\n"
+    output += "The following moves cannot be used in battle.\n\n"
     for id, effect of effects
       output += printEffect effect if effect.state == 'banned'
       
