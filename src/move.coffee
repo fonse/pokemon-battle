@@ -59,6 +59,9 @@ class Move
   
   afterDamage: (attacker, defender, damage, log) ->
     @effect.afterDamage attacker, defender, damage, log
+    
+  afterMiss: (attacker, defender, log) ->
+    @effect.afterMiss attacker, defender, log
 
   toString: ->
     return @name + " (" + @type.name + " - " + (if @basePower == 1 then 'X' else @basePower) + " power - " + @accuracy + " accuracy)"

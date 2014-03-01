@@ -10,6 +10,7 @@ class DefaultEffect
   battleMultiplier: (attacker, defender, damage, kill) -> 1
   
   afterDamage: (attacker, defender, damage, log) ->
+  afterMiss: (attacker, defender, log) ->
   
   effectiveness: (attacker, defender) ->
   

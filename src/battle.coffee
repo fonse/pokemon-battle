@@ -42,16 +42,22 @@ class Battle
   
   doAttack: (attacker, defender) ->
     @log.message attacker.trainerAndName() + " used " + attacker.move.name + "!"
-    if Math.random() * 100 > attacker.move.accuracy
-      @log.message attacker.trainerAndName() + "'s attack missed!"
+    effectiveness = attacker.move.effectiveness attacker, defender
+    miss = false
+
+    if effectiveness == 0
+      @log.message "It doesn't affect " + defender.trainerAndName() + "..."
+      miss = true
 
     else
-      effectiveness = attacker.move.effectiveness attacker, defender
-      if effectiveness == 0
-        @log.message "It has no effect!"
+      if Math.random() * 100 > attacker.move.accuracy
+        @log.message attacker.trainerAndName() + "'s attack missed!"
+        miss = true
+      
       else
         hits = attacker.move.hits()
         hit = 0
+        miss = false
         
         until hit++ == hits or @winner?
           critical = Math.random() < 0.0625
@@ -69,6 +75,10 @@ class Battle
             
           attacker.move.afterDamage attacker, defender, damage, @log
           this.checkFaint defender, attacker
+    
+    if miss
+      attacker.move.afterMiss attacker, defender, @log
+      this.checkFaint defender, attacker
     
     @log.endAttack()
     
