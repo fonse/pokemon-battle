@@ -6,7 +6,7 @@ class CritRateEffect extends DefaultEffect
       when 44, 201, 210 then 1
       when 289 then 50
 
-  buildMultiplier: ->
+  buildMultiplier: (attacker) ->
     switch @id
       when 44, 201, 210 then 1.03
       when 289 then 1.5
@@ -16,5 +16,7 @@ class CritRateEffect extends DefaultEffect
       when 44, 201, 210 then 1.03
       when 289 then 1.5
   
-
+  fullSupport: -> @id not in [201, 210]
+  
+  
 module.exports = CritRateEffect

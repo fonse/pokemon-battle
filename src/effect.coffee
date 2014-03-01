@@ -8,10 +8,11 @@ MultiHitEffect = require './effects/multiHitEffect'
 DoublePowerEffect = require './effects/doublePowerEffect'
 WeightDependentEffect = require './effects/weightDependentEffect'
 CritRateEffect = require './effects/critRateEffect'
+FlinchEffect = require './effects/flinchEffect'
 BannedEffect = require './effects/bannedEffect'
 
 class Effect
-  this.make = (id) ->
+  this.make = (id, chance) ->
     switch id
       when 1, 35, 104 then new NoEffect(id)
       
@@ -23,9 +24,6 @@ class Effect
       
       # Stat Levels - Also 205, 219, 230, 297, 331
       when 21, 69, 70, 71, 72, 73, 74, 139, 140, 141, 186, 272, 277, 296, 304, 305, 306, 335, 344 then new DefaultEffect(id)
-      
-      # Flinch
-      when 32, 147, 151, 274, 275, 276 then new DefaultEffect(id)
       
       # Accuracy-related
       when 18, 79 then new DefaultEffect(id)
@@ -45,6 +43,7 @@ class Effect
       when 318 then new DoublePowerEffect(id)
       when 197 then new WeightDependentEffect(id)
       when 44, 201, 210, 289 then new CritRateEffect(id)
+      when 32, 147, 151, 274, 275, 276 then new FlinchEffect(id, chance)
       else new BannedEffect(id)
 
 

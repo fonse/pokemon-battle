@@ -8,7 +8,7 @@ class RecoilEffect extends DefaultEffect
       when 270 then Math.round(damage / 2)
       else 0
 
-  buildMultiplier: ->
+  buildMultiplier: (attacker) ->
     switch @id
       when 49, 199, 254, 263 then 0.85
       when 270 then 0.5
@@ -22,5 +22,7 @@ class RecoilEffect extends DefaultEffect
     attacker.hp -= recoil
     log.message attacker.trainerAndName() + " is hurt " +  recoil + " HP (" + Math.round(recoil / attacker.maxHp * 100) + "%) by recoil!"
 
-
+  fullSupport: -> @id not in [254, 263]
+  
+  
 module.exports = RecoilEffect

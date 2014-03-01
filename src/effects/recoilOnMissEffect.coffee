@@ -1,7 +1,7 @@
 DefaultEffect = require './defaultEffect'
 
 class RecoilOnMissEffect extends DefaultEffect
-  buildMultiplier: -> 0.9
+  buildMultiplier: (attacker) -> 0.9
   
   battleMultiplier: (attacker, defender, damage, kill) -> 0.9
   

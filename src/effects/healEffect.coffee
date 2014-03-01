@@ -6,7 +6,7 @@ class HealEffect extends DefaultEffect
       when 4, 348 then Math.round(damage * 0.5)
       when 353 then Math.round(damage * 0.75)
 
-  buildMultiplier: ->
+  buildMultiplier: (attacker) ->
     switch @id
       when 4, 348 then 1.25
       when 353 then 1.5

@@ -22,6 +22,10 @@ class Battle
     this.chooseMove @pkmn2, @pkmn1
     throw new Error("One of the pokemon doesn't have an attack move.") unless @pkmn1.move? and @pkmn2.move?
     
+    # Clear temp status
+    @pkmn1.flinch = false
+    @pkmn2.flinch = false
+    
     # Decide who goes first
     if @pkmn1.move.priority == @pkmn2.move.priority
       pkmn1GoesFirst = @pkmn1.speed > @pkmn2.speed or (@pkmn1.speed == @pkmn2.speed and Math.random() < 0.5)
@@ -41,6 +45,10 @@ class Battle
     @log.endTurn()
   
   doAttack: (attacker, defender) ->
+    if attacker.flinch
+      @log.message attacker.trainerAndName() + " flinched and couldn't move!"
+      return
+  
     @log.message attacker.trainerAndName() + " used " + attacker.move.name + "!"
     effectiveness = attacker.move.effectiveness attacker, defender
     miss = false

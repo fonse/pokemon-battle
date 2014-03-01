@@ -21,14 +21,14 @@ class Move
     @basePower = move.power
     @accuracy = if move.accuracy > 0 then move.accuracy else 100
     @priority = move.priority
-    @effect = Effect.make move.effect
+    @effect = Effect.make move.effect, move.effect_chance
     @damageClass = move.damage_class
   
   banned: ->
     return @damageClass == @constructor.DAMAGE_NONE or @effect.banned() or this.power() < 2
   
-  buildMultiplier: ->
-    base = @effect.buildMultiplier()
+  buildMultiplier: (attacker) ->
+    base = @effect.buildMultiplier attacker
     
     base *= 1.33 if @priority > 0
     base *= 0.9 if @priority < 0

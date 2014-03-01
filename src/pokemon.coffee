@@ -14,6 +14,7 @@ class Pokemon
     @types = (new Type typeId for typeId in pokemon.types)
     @weight = pokemon.weight / 10
     
+    @stats = pokemon.stats
     @maxHp = 141 + 2 * pokemon.stats.hp
     @hp = @maxHp
     @attack = this.statFormula pokemon.stats.attack
@@ -51,7 +52,7 @@ class Pokemon
         else 1.1
       
     stat = if move.damageClass == Move.DAMAGE_PHYSICAL then @attack else @spattack
-    move.score = move.power(this) * typeMultiplier * stat * move.accuracy * move.buildMultiplier()
+    move.score = move.power(this) * typeMultiplier * stat * move.accuracy * move.buildMultiplier this
   
   chooseMoves: (moves) ->
     # Score each move this pokemon can learn
