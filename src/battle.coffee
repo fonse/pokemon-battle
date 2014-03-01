@@ -60,7 +60,7 @@ class Battle
         miss = false
         
         until hit++ == hits or @winner?
-          critical = Math.random() < 0.0625
+          critical = Math.random() < this.criticalChance attacker.move.criticalRateStage()
           random = Math.random() * (1 - 0.85) + 0.85
           damage = this.calculateDamage attacker.move, attacker, defender, critical, random
           damage = defender.hp if damage > defender.hp
@@ -101,6 +101,13 @@ class Battle
         bestDamage = damage
     
     attacker.move = bestMove
+  
+  criticalChance: (stage) ->
+    switch stage
+      when 0 then 1/16
+      when 1 then 1/8
+      when 2 then 1/2
+      else 1
   
   calculateDamage: (move, attacker, defender, critical = false, random = 0.925) ->
     attack = if move.damageClass == Move.DAMAGE_PHYSICAL then attacker.attack else attacker.spattack

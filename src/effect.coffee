@@ -1,4 +1,5 @@
 DefaultEffect = require './effects/defaultEffect'
+NoEffect = require './effects/noEffect'
 HealEffect = require './effects/healEffect'
 RecoilEffect = require './effects/recoilEffect'
 RecoilOnMissEffect = require './effects/recoilOnMissEffect'
@@ -6,15 +7,16 @@ StruggleEffect = require './effects/struggleEffect'
 MultiHitEffect = require './effects/multiHitEffect'
 DoublePowerEffect = require './effects/doublePowerEffect'
 WeightDependentEffect = require './effects/weightDependentEffect'
+CritRateEffect = require './effects/critRateEffect'
 BannedEffect = require './effects/bannedEffect'
 
 class Effect
   this.make = (id) ->
     switch id
-      when 1, 35, 104 then new DefaultEffect(id)
+      when 1, 35, 104 then new NoEffect(id)
       
-      # Status Ailments
-      when 1, 3, 5, 6, 7, 37, 126, 153, 170, 172, 198, 201, 203, 210, 261, 274, 275, 276, 284, 330 then new DefaultEffect(id)
+      # Status Ailments - Also 78, 254, 263, 201, 210, 274, 275, 276
+      when 1, 3, 5, 6, 7, 37, 126, 153, 170, 172, 198, 203, 261, 284, 330 then new DefaultEffect(id)
       
       # Pesudo-Status Ailments
       when 77, 268, 338 then new DefaultEffect(id)
@@ -22,11 +24,8 @@ class Effect
       # Stat Levels - Also 205, 219, 230, 297, 331
       when 21, 69, 70, 71, 72, 73, 74, 139, 140, 141, 186, 272, 277, 296, 304, 305, 306, 335, 344 then new DefaultEffect(id)
       
-      # Flinch - Also 201, 210, 274, 275, 276
-      when 32, 147, 151 then new DefaultEffect(id)
-      
-      # Crit Rate
-      when 44, 289 then new DefaultEffect(id)
+      # Flinch
+      when 32, 147, 151, 274, 275, 276 then new DefaultEffect(id)
       
       # Accuracy-related
       when 18, 79 then new DefaultEffect(id)
@@ -45,6 +44,7 @@ class Effect
       when 30, 45, 78 then new MultiHitEffect(id)
       when 318 then new DoublePowerEffect(id)
       when 197 then new WeightDependentEffect(id)
+      when 44, 201, 210, 289 then new CritRateEffect(id)
       else new BannedEffect(id)
 
 

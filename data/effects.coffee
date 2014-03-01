@@ -32,8 +32,8 @@ fs.exists path, (exists) ->
         effect = Effect.make move.effect
         effects[effect.id].state = switch
           when effect.banned() then 'banned'
-          when effect.constructor.name == 'DefaultEffect' and effect.id != 1 then 'unsupported'
-          else 'supported'
+          when effect.fullSupport() then 'supported'
+          else 'partly-supported'
         
         effects[effect.id].damages = effects[effect.id].damages or move.damage_class != 'non-damaging'
         effects[effect.id].examples.push(move.name)
@@ -48,7 +48,7 @@ fs.exists path, (exists) ->
       output += "\n## Partly Supported Effects ##\n"
       output += "The following moves can be used but not all side effects will take place.\n\n"
       for id, effect of effects
-        output += printEffect effect if effect.state == 'unsupported'
+        output += printEffect effect if effect.state == 'partly-supported'
         
       output += "\n## Banned Effects ##\n"
       output += "The following moves cannot be used in battle.\n\n"

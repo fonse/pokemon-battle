@@ -57,6 +57,9 @@ class Move
   hits: ->
     return @effect.hits()
   
+  criticalRateStage: ->
+    return @effect.criticalRateStage()
+  
   afterDamage: (attacker, defender, damage, log) ->
     @effect.afterDamage attacker, defender, damage, log
     
