@@ -22,7 +22,7 @@ class DefaultEffect
       183, 205, 230, 335,
       
       # Easier Effects
-      46, 298,
+      46, 294, 298,
       
       # Harder Effects
       8, 9, 39, 105, 136, 159, 171, 191, 247, 249, 293, 339,

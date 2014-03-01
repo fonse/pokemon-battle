@@ -15,13 +15,15 @@ class Pokemon
     @weight = pokemon.weight / 10
     
     @maxHp = 141 + 2 * pokemon.stats.hp
+    @hp = @maxHp
     @attack = this.statFormula pokemon.stats.attack
     @defense = this.statFormula pokemon.stats.defense
     @spattack = this.statFormula pokemon.stats.spattack
     @spdefense = this.statFormula pokemon.stats.spdefense
     @speed = this.statFormula pokemon.stats.speed
     
-    @hp = @maxHp
+    @debug = {}
+    @debug.helpfulTypes = this.calculateHelpfulTypes
     this.chooseMoves (new Move moveId for moveId in pokemon.moves)
   
   trainerAndName: ->
@@ -32,34 +34,39 @@ class Pokemon
     
   statFormula: (base) -> 36 + 2 * base
   
-  chooseMoves: (moves) ->
-    # Moves that are effective against this pokemon's weaknesses are slightly preferred
+  calculateHelpfulTypes: ->
     helpfulTypes = []
     for weakness in (type for type in Type.all() when type.effectiveAgainst @types)
       helpfulTypes = helpfulTypes.concat (type.id for type in Type.all() when type.effectiveAgainst weakness)
     
+    return helpfulTypes
+  
+  scoreMove: (move) ->
+    typeMultiplier = switch
+      when move.type.id in (@types.map (type) -> type.id) then 1.5
+      when move.type.id in @debug.helpfulTypes then 1.1
+      when move.type.id == 1 then 0.9
+      else 1
+      
+    stat = if move.damageClass == Move.DAMAGE_PHYSICAL then @attack else @spattack
+    move.score = move.power(this) * typeMultiplier * stat * move.accuracy * move.buildMultiplier()
+  
+  chooseMoves: (moves) ->
     # Score each move this pokemon can learn
-    @scoredMoves = []
+    scoredMoves = []
     for move in moves
       continue if move.blacklisted()
+      this.scoreMove move
       
-      typeMultiplier = switch
-        when move.type.id in (@types.map (type) -> type.id) then 1.5
-        when move.type.id in helpfulTypes then 1.1
-        when move.type.id == 1 then 0.9
-        else 1
-      
-      stat = if move.damageClass == Move.DAMAGE_PHYSICAL then @attack else @spattack
-      
-      move.score = move.power(this) * typeMultiplier * stat * move.accuracy * move.buildMultiplier()
-      @scoredMoves.push(move)
+      scoredMoves.push(move)
     
-    @scoredMoves.sort (a,b) -> b.score - a.score
+    scoredMoves.sort (a,b) -> b.score - a.score
+    @debug.scoredMoves = scoredMoves
     
     # And keep the best four without repeating types
     @moves = []
     typesCovered = []
-    for move in @scoredMoves
+    for move in scoredMoves
       if move.type.id not in typesCovered
         @moves.push(move)
         typesCovered.push(move.type.id)

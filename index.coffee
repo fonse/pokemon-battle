@@ -3,6 +3,13 @@ Battle = require './src/battle'
 
 pokemon = {}
 
+pokemon.lookup = (name) ->
+  name = name.toLowerCase()
+  switch
+    when name == 'nidoran f' then 29
+    when name == 'nidoran m' then 32
+    else (id for id, pkmn of Pokemon.pokedex when name is pkmn.name.toLowerCase())[0]
+
 pokemon.battle = (trainer1, trainer2) ->
   trainer1 = { pokemon: trainer1 } unless trainer1 instanceof Object
   trainer2 = { trainer: 'the foe', pokemon: trainer2 } unless trainer2 instanceof Object
@@ -20,7 +27,7 @@ pokemon.build = (pokemonId) ->
 pokemon.buildDebug = (pokemonId) ->
   pokemon = new Pokemon pokemonId
   
-  return (move.toString() + " " + move.score for move in pokemon.scoredMoves).join("\n").toString()
+  return (move.toString() + " " + move.score for move in pokemon.debug.scoredMoves).join("\n").toString()
   
 
 module.exports = pokemon
