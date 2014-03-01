@@ -9,7 +9,7 @@ options = { delimiter: ',', escape: '"', columns: true }
 
 printEffect = (effect) ->
   return '' if effect.examples.length == 0 or not effect.damages
-  return effect.id + ": " + effect.effect + " (" +  effect.examples[0..2].join(", ") + (if effect.examples.length > 3 then '...' else '') +  ")\n"
+  return effect.id + ": " + effect.effect + " (" +  effect.examples[0..2].join(", ") + (if effect.examples.length > 3 then '...' else '') +  ")  \n"
 
 if path?
   csv()

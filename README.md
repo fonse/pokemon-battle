@@ -106,6 +106,4 @@ The following elements are still unsopported, but I'd like to include them in fu
 - Held items
 - EVs
  
-There are also many damaging moves which were not implemented due to having complex restrictions or side effects. For example, Transform, Hidden Power, Synchronoise, Flying Press and multi-turn moves like Fly or Hyper Beam to name a few.
-
-If they are too situational they probably won't be implemented, but the more useful effects have already been implemented (such as Grass Knot, Acrobatics and multi-hit moves like Pin Missile) or will be (such as High Jump Kick and high critical rate moves like Shadow Claw).
+There are also many damaging moves which were not implemented due to having complex restrictions or side effects, such as Transform, Hidden Power, Synchronoise, Flying Press and multi-turn moves like Fly or Hyper Beam. For a full list of these effects and their level of support, see the [list of move effects](https://github.com/fonse/pokemon-battle/edit/master/docs/effects.md).
