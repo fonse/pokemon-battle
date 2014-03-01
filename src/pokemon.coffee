@@ -46,7 +46,7 @@ class Pokemon
       when move.type.id in (@types.map (type) -> type.id) then 1.5
       when move.type.id in @debug.helpfulTypes then 1.2
       else switch move.type.strengths().length
-        when 1,2 then 0.9
+        when 0,1,2 then 0.9
         when 3 then 1
         else 1.1
       
