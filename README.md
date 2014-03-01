@@ -27,20 +27,20 @@ console.log pokemon.battle 59, 135
 The code above will output the result of the battle:
 ```
 The foe's Jolteon used Thunderbolt!
-Your Arcanine is hit for 155 HP (48%)
-
-Your Arcanine used Bulldoze!
 It's a critical hit!
-It's super effective!
-The foe's Jolteon is hit for 244 HP (90%)
+Your Arcanine is hit for 210 HP (65%)
+
+Your Arcanine used Flare Blitz!
+The foe's Jolteon is hit for 260 HP (96%)
+Your Arcanine is hurt 87 HP (27%) by recoil!
 
 
 Your Arcanine used Extreme Speed!
-The foe's Jolteon is hit for 27 HP (10%)
+The foe's Jolteon is hit for 11 HP (4%)
 The foe's Jolteon fained!
 
 
-The winner is your Arcanine with 166 HP (52%) remaining!
+The winner is your Arcanine with 24 HP (7%) remaining!
 ```
 
 You can also check which moves the simulator chose for a given pokemon.

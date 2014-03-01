@@ -28,6 +28,9 @@ class Type
   weaknesses: ->
     return (new @constructor typeId for typeId, effectiveness of @defense when effectiveness > 1)
   
+  strengths: ->
+    return (new @constructor typeId for typeId, effectiveness of @offense when effectiveness > 1)
+  
   toString: ->
     return @name
 

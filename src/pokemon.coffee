@@ -44,9 +44,11 @@ class Pokemon
   scoreMove: (move) ->
     typeMultiplier = switch
       when move.type.id in (@types.map (type) -> type.id) then 1.5
-      when move.type.id in @debug.helpfulTypes then 1.1
-      when move.type.id == 1 then 0.9
-      else 1
+      when move.type.id in @debug.helpfulTypes then 1.2
+      else switch move.type.strengths().length
+        when 1,2 then 0.9
+        when 3 then 1
+        else 1.1
       
     stat = if move.damageClass == Move.DAMAGE_PHYSICAL then @attack else @spattack
     move.score = move.power(this) * typeMultiplier * stat * move.accuracy * move.buildMultiplier()
