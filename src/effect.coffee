@@ -9,6 +9,7 @@ DoublePowerEffect = require './effects/doublePowerEffect'
 WeightDependentEffect = require './effects/weightDependentEffect'
 CritRateEffect = require './effects/critRateEffect'
 FlinchEffect = require './effects/flinchEffect'
+StatStageEffect = require './effects/statStageEffect'
 BannedEffect = require './effects/bannedEffect'
 
 class Effect
@@ -22,8 +23,8 @@ class Effect
       # Pesudo-Status Ailments
       when 77, 268, 338 then new DefaultEffect(id)
       
-      # Stat Levels - Also 205, 219, 230, 297, 331
-      when 21, 69, 70, 71, 72, 73, 74, 139, 140, 141, 186, 272, 277, 296, 304, 305, 306, 335, 344 then new DefaultEffect(id)
+      # Stat Levels
+      when 74, 304, 305, 306, 344 then new DefaultEffect(id)
       
       # Accuracy-related
       when 18, 79 then new DefaultEffect(id)
@@ -32,7 +33,7 @@ class Effect
       when 106, 189, 225, 315 then new DefaultEffect(id)
       
       # Misc
-      when 129, 130, 148, 150, 187, 208, 222, 224, 229, 231, 232, 258, 269, 288, 290, 302, 303, 311, 314, 320, 350 then new DefaultEffect(id)
+      when 129, 130, 148, 150, 186, 187, 208, 222, 224, 229, 231, 232, 258, 269, 288, 290, 302, 303, 311, 314, 320, 350 then new DefaultEffect(id)
       
       # Fully Implemented
       when 4, 348, 353 then new HealEffect(id)
@@ -44,6 +45,7 @@ class Effect
       when 197 then new WeightDependentEffect(id)
       when 44, 201, 210, 289 then new CritRateEffect(id)
       when 32, 147, 151, 274, 275, 276 then new FlinchEffect(id, chance)
+      when 21, 69, 70, 71, 72, 73, 139, 140, 141, 205, 219, 230, 272, 277, 296, 297, 331, 335 then new StatStageEffect(id, chance)
       else new BannedEffect(id)
 
 
