@@ -27,6 +27,9 @@ class Move
   banned: ->
     return @damageClass == @constructor.DAMAGE_NONE or @effect.banned() or this.power() < 2
   
+  attackStat: -> if @damageClass == @constructor.DAMAGE_PHYSICAL then 'attack' else 'spattack'
+  defenseStat: -> if @damageClass == @constructor.DAMAGE_PHYSICAL then 'defense' else 'spdefense'
+  
   buildMultiplier: (attacker) ->
     base = @effect.buildMultiplier attacker
     

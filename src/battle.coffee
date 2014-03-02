@@ -28,7 +28,7 @@ class Battle
     
     # Decide who goes first
     if @pkmn1.move.priority == @pkmn2.move.priority
-      pkmn1GoesFirst = @pkmn1.speed > @pkmn2.speed or (@pkmn1.speed == @pkmn2.speed and Math.random() < 0.5)
+      pkmn1GoesFirst = @pkmn1.speed() > @pkmn2.speed() or (@pkmn1.speed() == @pkmn2.speed() and Math.random() < 0.5)
     else
       pkmn1GoesFirst = @pkmn1.move.priority > @pkmn2.move.priority
     
@@ -118,8 +118,8 @@ class Battle
       else 1
   
   calculateDamage: (move, attacker, defender, critical = false, random = 0.925) ->
-    attack = if move.damageClass == Move.DAMAGE_PHYSICAL then attacker.attack else attacker.spattack
-    defense = if move.damageClass == Move.DAMAGE_PHYSICAL then defender.defense else defender.spdefense
+    attack = attacker.stat move.attackStat()
+    defense = defender.stat move.defenseStat()
     
     stab = if move.type.id in (attacker.types.map (type) -> type.id) then 1.5 else 1
     type = move.effectiveness attacker, defender
