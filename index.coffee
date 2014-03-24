@@ -10,12 +10,16 @@ pokemon.lookup = (name) ->
     when name == 'nidoran m' then 32
     else (id for id, pkmn of Pokemon.pokedex when name is pkmn.name.toLowerCase())[0]
 
-pokemon.battle = (trainer1, trainer2) ->
-  trainer1 = { pokemon: trainer1 } unless trainer1 instanceof Object
-  trainer2 = { trainer: 'the foe', pokemon: trainer2 } unless trainer2 instanceof Object
+pokemon.battle = (team1, team2) ->
+  team1 = { pokemon: team1 } unless team1 instanceof Object and team1 not instanceof Array
+  team2 = { trainer: 'the foe', pokemon: team2 } unless team2 instanceof Object and team2 not instanceof Array
   
-  pokemon1 = new Pokemon trainer1.pokemon, trainer1.trainer
-  pokemon2 = new Pokemon trainer2.pokemon, trainer2.trainer
+  team1.pokemon = [ team1.pokemon ] unless team1.pokemon instanceof Array
+  team2.pokemon = [ team2.pokemon ] unless team2.pokemon instanceof Array
+  
+  pokemon1 = (new Pokemon pokemon, team1.trainer for pokemon in team1.pokemon)
+  pokemon2 = (new Pokemon pokemon, team2.trainer for pokemon in team2.pokemon)
+
   battle = new Battle pokemon1, pokemon2
   return battle.start().toString()
   
