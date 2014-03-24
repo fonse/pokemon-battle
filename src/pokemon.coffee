@@ -38,12 +38,24 @@ class Pokemon
     else
       return @trainer + "'s " + @name
   
-  stat: (stat) -> 36 + 2 * @stats.base[stat] * this.statStageMultiplier @stats.stage[stat]
   attack: -> this.stat 'attack'
   defense: -> this.stat 'defense'
   spattack: -> this.stat 'spattack'
   spdefense: -> this.stat 'spdefense'
   speed: -> this.stat 'speed'
+  
+  stat: (stat, options) ->
+    options = {} unless options?
+    options.ingorePositive = false unless options.ingorePositive?
+    options.ingoreNegative = false unless options.ingoreNegative?
+  
+    stageMultiplier = this.statStageMultiplier @stats.stage[stat]
+    stageMultiplier = 1 if stageMultiplier > 1 and options.ingorePositive
+    stageMultiplier = 1 if stageMultiplier < 1 and options.ingoreNegative
+    
+    return 36 + 2 * @stats.base[stat] * stageMultiplier
+    
+  
   
   statStageMultiplier: (stage) ->
     switch stage

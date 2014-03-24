@@ -117,9 +117,9 @@ class Battle
       when 2 then 1/2
       else 1
   
-  calculateDamage: (move, attacker, defender, critical = false, random = 0.925) ->
-    attack = attacker.stat move.attackStat()
-    defense = defender.stat move.defenseStat()
+  calculateDamage: (move, attacker, defender, critical = false, random = 0.9) ->
+    attack = attacker.stat move.attackStat(), {ingoreNegative: critical}
+    defense = defender.stat move.defenseStat(), {ingorePositive: critical}
     
     stab = if move.type.id in (attacker.types.map (type) -> type.id) then 1.5 else 1
     type = move.effectiveness attacker, defender
