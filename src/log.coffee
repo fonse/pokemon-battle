@@ -1,5 +1,5 @@
 class Log
-  constructor:  ->
+  constructor: ->
     @log = []
     @turn = 0
     @attack = 0
