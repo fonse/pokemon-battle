@@ -10,6 +10,7 @@ WeightDependentEffect = require './effects/weightDependentEffect'
 CritRateEffect = require './effects/critRateEffect'
 FlinchEffect = require './effects/flinchEffect'
 StatStageEffect = require './effects/statStageEffect'
+SwitchOutEffect = require './effects/switchOutEffect'
 BannedEffect = require './effects/bannedEffect'
 
 class Effect
@@ -32,8 +33,11 @@ class Effect
       # Items
       when 106, 189, 225, 315 then new DefaultEffect(id)
       
+      # U-turn
+      when 229 then new SwitchOutEffect(id)
+      
       # Misc
-      when 129, 130, 148, 150, 186, 187, 208, 222, 224, 229, 231, 232, 258, 269, 288, 290, 302, 303, 311, 314, 320, 350 then new DefaultEffect(id)
+      when 130, 148, 150, 186, 187, 208, 222, 224, 231, 232, 258, 269, 288, 290, 302, 303, 311, 314, 320, 350 then new DefaultEffect(id)
       
       # Fully Implemented
       when 4, 348, 353 then new HealEffect(id)

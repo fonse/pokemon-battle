@@ -18,7 +18,7 @@ class Battle
     @log.message @winner.nameOrYou() + " defeated " + loser.nameOrYou() + "!"
     for pokemon in @winner.team
       @log.message pokemon.name + ": " + pokemon.hp + " HP (" + Math.round(pokemon.hp / pokemon.maxHp * 100) + "%) left."
-      
+
     return @log
   
   nextTurn: ->
@@ -47,7 +47,7 @@ class Battle
       pkmn1GoesFirst = pokemon1.speed() > pokemon2.speed() or (pokemon1.speed() == pokemon2.speed() and Math.random() < 0.5)
     else
       pkmn1GoesFirst = pokemon1.move.priority > pokemon2.move.priority
-    
+
     if (pkmn1GoesFirst)
       attacker = pokemon1
       defender = pokemon2
@@ -57,6 +57,8 @@ class Battle
     
     # Perform the attacks
     defenderFainted = this.doAttack attacker, defender if attacker.move?
+    attacker = attacker.trainer.mainPokemon # Moves like U-turn can force a switch
+    
     this.doAttack defender, attacker if defender.move? and not defenderFainted
     @log.endTurn()
   

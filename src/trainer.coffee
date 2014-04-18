@@ -31,6 +31,15 @@ class Trainer
     return @mainPokemon
   
   switchPokemon: (opponent, log) ->
+    # Reset current pokemon's stats
+    @mainPokemon.stats.stage = {
+      attack: 0,
+      defense: 0,
+      spattack: 0,
+      spdefense: 0,
+      speed: 0,
+    }
+  
     #TODO Maybe consider fast pokemon against low-HP pokemon?
     candidates = (pokemon for pokemon in this.ablePokemon() when pokemon != @mainPokemon)
     maxScore = -1
