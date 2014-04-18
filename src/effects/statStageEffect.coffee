@@ -38,7 +38,7 @@ class StatStageEffect extends DefaultEffect
   
   afterDamage: (attacker, defender, damage, log) ->
     target = this.target attacker, defender
-    if Math.random() * 100 < @chance
+    if Math.random() * 100 < @chance and target.hp > 0
       for stat, change of this.stats()
         target.modifyStatStage stat, change, log
 
