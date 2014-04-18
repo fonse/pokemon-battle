@@ -4,7 +4,9 @@ Pokemon = require './pokemon'
 Log = require './log'
 
 class Battle
-  constructor: (@pkmn1, @pkmn2) ->
+  constructor: (@trainer1, @trainer2) ->
+    @trainer1.firstPokemon()
+    @trainer2.firstPokemon()
   
   start: ->
     @log = new Log
@@ -12,42 +14,58 @@ class Battle
     until @winner?
       this.nextTurn()
     
-    @winner.hp = 0 if @winner.hp < 0  
-    @log.message "The winner is " + @winner.trainerAndName() + " with " + @winner.hp + " HP (" + Math.round(@winner.hp / @winner.maxHp * 100) + "%) remaining!"
+    loser = if @winner == @trainer1 then @trainer2 else @trainer1
+    @log.message @winner.nameOrYou() + " defeated " + loser.nameOrYou() + "!"
+    for pokemon in @winner.team
+      @log.message pokemon.name + ": " + pokemon.hp + " HP (" + Math.round(pokemon.hp / pokemon.maxHp * 100) + "%) left."
+
     return @log
   
   nextTurn: ->
+    pokemon1 = @trainer1.mainPokemon
+    pokemon2 = @trainer2.mainPokemon
+
     # Choose moves
-    this.chooseMove @pkmn1, @pkmn2
-    this.chooseMove @pkmn2, @pkmn1
-    throw new Error("One of the pokemon doesn't have an attack move.") unless @pkmn1.move? and @pkmn2.move?
+    this.chooseMove pokemon1, pokemon2
+    this.chooseMove pokemon2, pokemon1
+    throw new Error("One of the pokemon doesn't have an attack move.") unless pokemon1.move? and pokemon2.move?
     
     # Clear temp status
-    @pkmn1.flinch = false
-    @pkmn2.flinch = false
+    pokemon1.flinch = false
+    pokemon2.flinch = false
     
+    # Switch out pokemon?
+    newPokemon1 = pokemon1.trainer.maybeSwitchOut pokemon1, pokemon2, @log
+    newPokemon2 = pokemon2.trainer.maybeSwitchOut pokemon2, pokemon1, @log
+    pokemon1 = newPokemon1
+    pokemon2 = newPokemon2
+
     # Decide who goes first
-    if @pkmn1.move.priority == @pkmn2.move.priority
-      pkmn1GoesFirst = @pkmn1.speed() > @pkmn2.speed() or (@pkmn1.speed() == @pkmn2.speed() and Math.random() < 0.5)
+    unless pokemon1.move? and pokemon2.move?
+      pkmn1GoesFirst = true
+    else if pokemon1.move.priority == pokemon2.move.priority
+      pkmn1GoesFirst = pokemon1.speed() > pokemon2.speed() or (pokemon1.speed() == pokemon2.speed() and Math.random() < 0.5)
     else
-      pkmn1GoesFirst = @pkmn1.move.priority > @pkmn2.move.priority
-    
+      pkmn1GoesFirst = pokemon1.move.priority > pokemon2.move.priority
+
     if (pkmn1GoesFirst)
-      attacker = @pkmn1
-      defender = @pkmn2
+      attacker = pokemon1
+      defender = pokemon2
     else
-      attacker = @pkmn2
-      defender = @pkmn1
+      attacker = pokemon2
+      defender = pokemon1
     
     # Perform the attacks
-    this.doAttack attacker, defender
-    this.doAttack defender, attacker unless @winner?
+    defenderFainted = this.doAttack attacker, defender if attacker.move?
+    attacker = attacker.trainer.mainPokemon # Moves like U-turn can force a switch
+    
+    this.doAttack defender, attacker if defender.move? and not defenderFainted
     @log.endTurn()
   
   doAttack: (attacker, defender) ->
     if attacker.flinch
       @log.message attacker.trainerAndName() + " flinched and couldn't move!"
-      return
+      return false
   
     @log.message attacker.trainerAndName() + " used " + attacker.move.name + "!"
     effectiveness = attacker.move.effectiveness attacker, defender
@@ -67,7 +85,9 @@ class Battle
         hit = 0
         miss = false
         
-        until hit++ == hits or @winner?
+        attackerFainted = false
+        defenderFainted = false
+        until (hit++ == hits) or attackerFainted or defenderFainted
           critical = Math.random() < this.criticalChance attacker.move.criticalRateStage()
           random = Math.random() * (1 - 0.85) + 0.85
           damage = this.calculateDamage attacker.move, attacker, defender, critical, random
@@ -79,22 +99,37 @@ class Battle
           @log.message defender.trainerAndName() + " is hit for " + damage + " HP (" + Math.round(damage / defender.maxHp * 100) + "%)"
           
           defender.hp -= damage
-          this.checkFaint attacker, defender
+          defenderFainted = this.checkFaint defender
             
           attacker.move.afterDamage attacker, defender, damage, @log
-          this.checkFaint defender, attacker
-    
+          attackerFainted = this.checkFaint attacker
+          
     if miss
       attacker.move.afterMiss attacker, defender, @log
-      this.checkFaint defender, attacker
+      attackerFainted = this.checkFaint attacker
+    
+    if defenderFainted and not @winner?
+      defender.trainer.switchPokemon attacker, @log
+      
+    if attackerFainted and not @winner?
+      attacker.trainer.switchPokemon defender, @log
     
     @log.endAttack()
+    return defenderFainted
     
-  checkFaint: (attacker, defender) ->
-    if (defender.hp <= 0)
-      @log.message defender.trainerAndName() + " fained!"
-      @winner = attacker unless @winner
-   
+  checkFaint: (pokemon) ->
+    result = false
+    if (pokemon.hp <= 0)
+      pokemon.hp = 0
+      @log.message pokemon.trainerAndName() + " fained!"
+      result = true
+    
+    if pokemon.trainer.ablePokemon().length == 0
+      otherTrainer = if pokemon.trainer == @trainer1 then @trainer2 else @trainer1
+      @winner = otherTrainer unless @winner
+    
+    return result
+  
   chooseMove: (attacker, defender) ->
     bestMove = null
     bestDamage = -1

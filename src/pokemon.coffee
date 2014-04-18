@@ -5,12 +5,11 @@ Move = require './move'
 class Pokemon
   this.pokedex = JSON.parse fs.readFileSync(__dirname + '/../data/pokemon.json').toString()
 
-  constructor: (id, trainer) ->
+  constructor: (id) ->
     pokemon = @constructor.pokedex[id]
     throw new Error("Pokemon not found: " + id) unless pokemon?
     
     @name = pokemon.name
-    @trainer = trainer
     @types = (new Type typeId for typeId in pokemon.types)
     @weight = pokemon.weight / 10
     
@@ -29,14 +28,14 @@ class Pokemon
     @hp = @maxHp
     
     @debug = {}
-    @debug.helpfulTypes = this.calculateHelpfulTypes
+    @debug.helpfulTypes = this.calculateHelpfulTypes()
     this.chooseMoves (new Move moveId for moveId in pokemon.moves)
   
   trainerAndName: ->
-    if not @trainer?
+    if not @trainer.name?
       return "your " + @name
     else
-      return @trainer + "'s " + @name
+      return @trainer.name + "'s " + @name
   
   attack: -> this.stat 'attack'
   defense: -> this.stat 'defense'
@@ -55,8 +54,6 @@ class Pokemon
     
     return 36 + 2 * @stats.base[stat] * stageMultiplier
     
-  
-  
   statStageMultiplier: (stage) ->
     switch stage
       when -6 then 2/8
@@ -99,6 +96,9 @@ class Pokemon
           when -1 then log.message this.trainerAndName() + "'s " + statName + " fell!"
           when -2 then log.message this.trainerAndName() + "'s " + statName + " harshly fell!"
           when -3 then log.message this.trainerAndName() + "'s " + statName + " severely fell!"
+  
+  typeAdvantageAgainst: (pokemon) ->
+    ( type for type in @types when type.effectiveAgainst pokemon.types ).length > 0
   
   calculateHelpfulTypes: ->
     helpfulTypes = []

@@ -1,4 +1,5 @@
 Pokemon = require './src/pokemon'
+Trainer = require './src/trainer'
 Battle = require './src/battle'
 
 pokemon = {}
@@ -10,13 +11,23 @@ pokemon.lookup = (name) ->
     when name == 'nidoran m' then 32
     else (id for id, pkmn of Pokemon.pokedex when name is pkmn.name.toLowerCase())[0]
 
-pokemon.battle = (trainer1, trainer2) ->
-  trainer1 = { pokemon: trainer1 } unless trainer1 instanceof Object
-  trainer2 = { trainer: 'the foe', pokemon: trainer2 } unless trainer2 instanceof Object
+pokemon.battle = (team1, team2) ->
+  # Standarize input
+  team1 = { trainer: null,      pokemon: team1 } unless team1 instanceof Object and team1 not instanceof Array
+  team2 = { trainer: 'the foe', pokemon: team2 } unless team2 instanceof Object and team2 not instanceof Array
   
-  pokemon1 = new Pokemon trainer1.pokemon, trainer1.trainer
-  pokemon2 = new Pokemon trainer2.pokemon, trainer2.trainer
-  battle = new Battle pokemon1, pokemon2
+  team1.pokemon = [ team1.pokemon ] unless team1.pokemon instanceof Array
+  team2.pokemon = [ team2.pokemon ] unless team2.pokemon instanceof Array
+  
+  # Build trainers
+  trainer1 = new Trainer team1.trainer
+  trainer1.addPokemon new Pokemon pokemon for pokemon in team1.pokemon
+  
+  trainer2 = new Trainer team2.trainer
+  trainer2.addPokemon new Pokemon pokemon for pokemon in team2.pokemon
+
+  # Fight!  
+  battle = new Battle trainer1, trainer2
   return battle.start().toString()
   
 pokemon.build = (pokemonId) ->
