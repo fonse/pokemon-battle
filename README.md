@@ -66,162 +66,136 @@ console.log pokemon.battle {trainer: "Red",  pokemon: [25, 196, 143, 3, 6, 9]},
 Output:
 
 ```
-Blue withdrew Pidgeot.
+Blue's Pidgeot used U-turn!
+Red's Pikachu is hit for 103 HP (49%)
 Blue took out Rhydon.
+
 Red's Pikachu used Volt Tackle!
 It doesn't affect Blue's Rhydon...
 
 
-Red withdrew Pikachu.
-Red took out Venusaur.
+Red's Pikachu used Grass Knot!
+It's super effective!
+Blue's Rhydon is hit for 348 HP (99%)
+
 Blue's Rhydon used Hammer Arm!
-It's not very effective...
-Red's Venusaur is hit for 62 HP (21%)
-Blue's Rhydon's Speed rose!
-
-
-Red's Venusaur used Giga Drain!
-It's super effective!
-Blue's Rhydon is hit for 351 HP (100%)
-Blue's Rhydon fained!
-Red's Venusaur healed 62 HP (21%)!
-Blue took out Alakazam.
-
-
-Red withdrew Venusaur.
-Red took out Pikachu.
-Blue's Alakazam used Psychic!
-Red's Pikachu is hit for 211 HP (100%)
+Red's Pikachu is hit for 108 HP (51%)
 Red's Pikachu fained!
+Blue's Rhydon's Speed rose!
 Red took out Blastoise.
 
 
-Blue's Alakazam used Psychic!
-Red's Blastoise is hit for 142 HP (47%)
-
-Red's Blastoise used Earthquake!
-Blue's Alakazam is hit for 126 HP (50%)
-
-
-Blue's Alakazam used Psychic!
-Red's Blastoise is hit for 143 HP (48%)
-
-Red's Blastoise used Earthquake!
-Blue's Alakazam is hit for 125 HP (50%)
-Blue's Alakazam fained!
+Blue withdrew Rhydon.
 Blue took out Exeggutor.
+Red's Blastoise used Surf!
+It's not very effective...
+Blue's Exeggutor is hit for 75 HP (23%)
 
 
-Red withdrew Blastoise.
-Red took out Charizard.
-Blue's Exeggutor used Ancient Power!
+Red's Blastoise used Ice Beam!
+It's a critical hit!
 It's super effective!
-Red's Charizard is hit for 266 HP (90%)
-
-
-Red's Charizard used Air Slash!
-It's super effective!
-Blue's Exeggutor is hit for 287 HP (87%)
-
-Blue's Exeggutor used Ancient Power!
-It's super effective!
-Red's Charizard is hit for 31 HP (10%)
-Red's Charizard fained!
-Red took out Espeon.
-
-
-Red's Espeon used Shadow Ball!
-It's super effective!
-Blue's Exeggutor is hit for 44 HP (13%)
+Blue's Exeggutor is hit for 256 HP (77%)
 Blue's Exeggutor fained!
-Blue's Exeggutor's Special Defense fell!
-Blue took out Pidgeot.
-
-
-Red's Espeon used Psychic!
-Blue's Pidgeot is hit for 174 HP (57%)
-
-Blue's Pidgeot used Brave Bird!
-Red's Espeon is hit for 197 HP (73%)
-Blue's Pidgeot is hurt 66 HP (21%) by recoil!
-
-
-Red's Espeon used Psychic!
-Blue's Pidgeot is hit for 67 HP (22%)
-Blue's Pidgeot fained!
-Blue took out Arcanine.
-
-
-Blue's Arcanine used Extreme Speed!
-Red's Espeon is hit for 74 HP (27%)
-Red's Espeon fained!
-Red took out Blastoise.
-
-
-Blue's Arcanine used Extreme Speed!
-Red's Blastoise is hit for 14 HP (5%)
-Red's Blastoise fained!
-Red took out Snorlax.
-
-
-Blue's Arcanine used Flare Blitz!
-Red's Snorlax is hit for 222 HP (48%)
-Blue's Arcanine is hurt 74 HP (23%) by recoil!
-
-Red's Snorlax used Earthquake!
-It's super effective!
-Blue's Arcanine is hit for 221 HP (69%)
-
-
-Blue's Arcanine used Extreme Speed!
-Red's Snorlax is hit for 100 HP (22%)
-
-Red's Snorlax used Earthquake!
-It's super effective!
-Blue's Arcanine is hit for 26 HP (8%)
-Blue's Arcanine fained!
 Blue took out Gyarados.
 
 
 Blue's Gyarados used Earthquake!
-Red's Snorlax is hit for 139 HP (30%)
+Red's Blastoise is hit for 97 HP (32%)
+
+Red's Blastoise used Ice Beam!
+Blue's Gyarados is hit for 66 HP (20%)
+
+
+Blue's Gyarados used Earthquake!
+Red's Blastoise is hit for 106 HP (35%)
+
+Red's Blastoise used Ice Beam!
+Blue's Gyarados is hit for 70 HP (21%)
+
+
+Blue's Gyarados used Earthquake!
+Red's Blastoise is hit for 96 HP (32%)
+Red's Blastoise fained!
+Red took out Snorlax.
+
+
+Blue's Gyarados used Aqua Tail!
+Red's Snorlax is hit for 188 HP (41%)
+
+Red's Snorlax used Double-Edge!
+Blue's Gyarados is hit for 195 HP (59%)
+Blue's Gyarados fained!
+Red's Snorlax is hurt 65 HP (14%) by recoil!
+Blue took out Alakazam.
+
+
+Blue's Alakazam used Focus Blast!
+It's super effective!
+Red's Snorlax is hit for 208 HP (45%)
 Red's Snorlax fained!
+Red took out Espeon.
+
+
+Blue's Alakazam used Shadow Ball!
+It's super effective!
+Red's Espeon is hit for 187 HP (69%)
+
+Red's Espeon used Shadow Ball!
+It's super effective!
+Blue's Alakazam is hit for 175 HP (70%)
+
+
+Blue's Alakazam used Shadow Ball!
+It's super effective!
+Red's Espeon is hit for 84 HP (31%)
+Red's Espeon fained!
+Red took out Charizard.
+
+
+Blue's Alakazam used Psychic!
+Red's Charizard is hit for 179 HP (60%)
+
+Red's Charizard used Earthquake!
+Blue's Alakazam is hit for 76 HP (30%)
+Blue's Alakazam fained!
+Blue took out Rhydon.
+
+
+Red's Charizard used Air Slash!
+It's not very effective...
+Blue's Rhydon is hit for 3 HP (1%)
+Blue's Rhydon fained!
+Blue took out Arcanine.
+
+
+Red's Charizard used Earthquake!
+It's super effective!
+Blue's Arcanine is hit for 161 HP (50%)
+
+Blue's Arcanine used Wild Charge!
+It's super effective!
+Red's Charizard is hit for 118 HP (40%)
+Red's Charizard fained!
+Blue's Arcanine is hurt 30 HP (9%) by recoil!
 Red took out Venusaur.
 
 
-Blue's Gyarados used Earthquake!
-Red's Venusaur is hit for 112 HP (37%)
-
-Red's Venusaur used Sludge Bomb!
+Blue's Arcanine used Flare Blitz!
 It's a critical hit!
-Blue's Gyarados is hit for 174 HP (53%)
+It's super effective!
+Red's Venusaur is hit for 301 HP (100%)
+Red's Venusaur fained!
+Blue's Arcanine is hurt 100 HP (31%) by recoil!
 
 
-Blue's Gyarados used Earthquake!
-Red's Venusaur is hit for 116 HP (39%)
-
-Red's Venusaur used Giga Drain!
-Blue's Gyarados is hit for 90 HP (27%)
-Red's Venusaur healed 45 HP (15%)!
-
-
-Blue's Gyarados used Earthquake!
-Red's Venusaur is hit for 111 HP (37%)
-
-Red's Venusaur used Giga Drain!
-Blue's Gyarados is hit for 67 HP (20%)
-Blue's Gyarados fained!
-Red's Venusaur healed 34 HP (11%)!
-
-
-Red defeated Blue!
-Pikachu: 0 HP (0%) left.
-Espeon: 0 HP (0%) left.
-Snorlax: 0 HP (0%) left.
-Venusaur: 41 HP (14%) left.
-Charizard: 0 HP (0%) left.
-Blastoise: 0 HP (0%) left.
-
+Blue defeated Red!
+Pidgeot: 307 HP (100%) left.
+Alakazam: 0 HP (0%) left.
+Rhydon: 0 HP (0%) left.
+Gyarados: 0 HP (0%) left.
+Exeggutor: 0 HP (0%) left.
+Arcanine: 30 HP (9%) left.
 ```
 
 
