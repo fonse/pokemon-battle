@@ -34,8 +34,16 @@ class Battle
     pokemon1.flinch = false
     pokemon2.flinch = false
     
+    # Switch out pokemon?
+    newPokemon1 = pokemon1.trainer.maybeSwitchOut pokemon1, pokemon2, @log
+    newPokemon2 = pokemon2.trainer.maybeSwitchOut pokemon2, pokemon1, @log
+    pokemon1 = newPokemon1
+    pokemon2 = newPokemon2
+
     # Decide who goes first
-    if pokemon1.move.priority == pokemon2.move.priority
+    unless pokemon1.move? and pokemon2.move?
+      pkmn1GoesFirst = true
+    else if pokemon1.move.priority == pokemon2.move.priority
       pkmn1GoesFirst = pokemon1.speed() > pokemon2.speed() or (pokemon1.speed() == pokemon2.speed() and Math.random() < 0.5)
     else
       pkmn1GoesFirst = pokemon1.move.priority > pokemon2.move.priority
@@ -48,8 +56,8 @@ class Battle
       defender = pokemon1
     
     # Perform the attacks
-    defenderFainted = this.doAttack attacker, defender
-    this.doAttack defender, attacker unless defenderFainted
+    defenderFainted = this.doAttack attacker, defender if attacker.move?
+    this.doAttack defender, attacker if defender.move? and not defenderFainted
     @log.endTurn()
   
   doAttack: (attacker, defender) ->
