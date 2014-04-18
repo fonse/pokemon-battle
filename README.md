@@ -51,7 +51,7 @@ By providing lists of pokemon, you can simulate a battle between 2 teams. For ex
 ```coffee
 pokemon = require 'pokemon-battle'
 
-console.log pokemon.battle [25, 196, 143, 3, 6, 9], [18, 65, 112, 130, 103, 56]
+console.log pokemon.battle [25, 196, 143, 3, 6, 9], [18, 65, 112, 130, 103, 59]
 ```
 
 You can also name the trainers, instead the default "you" and "the foe", by using an object:
@@ -60,7 +60,7 @@ You can also name the trainers, instead the default "you" and "the foe", by usin
 pokemon = require 'pokemon-battle'
 
 console.log pokemon.battle {trainer: "Red",  pokemon: [25, 196, 143, 3, 6, 9]},
-                           {trainer: "Blue", pokemon: [18, 65, 112, 130, 103, 56]}
+                           {trainer: "Blue", pokemon: [18, 65, 112, 130, 103, 59]}
 ```
 
 Output:
@@ -72,153 +72,156 @@ Red's Pikachu used Volt Tackle!
 It doesn't affect Blue's Rhydon...
 
 
-Red's Pikachu used Grass Knot!
+Red withdrew Pikachu.
+Red took out Venusaur.
+Blue's Rhydon used Hammer Arm!
+It's not very effective...
+Red's Venusaur is hit for 62 HP (21%)
+Blue's Rhydon's Speed rose!
+
+
+Red's Venusaur used Giga Drain!
 It's super effective!
 Blue's Rhydon is hit for 351 HP (100%)
 Blue's Rhydon fained!
-Blue took out Exeggutor.
-
-
-Red's Pikachu used Volt Tackle!
-It's not very effective...
-Blue's Exeggutor is hit for 50 HP (15%)
-Red's Pikachu is hurt 17 HP (8%) by recoil!
-
-Blue's Exeggutor used Psychic!
-Red's Pikachu is hit for 194 HP (92%)
-Red's Pikachu fained!
-Red took out Charizard.
-
-
-Blue withdrew Exeggutor.
-Blue took out Gyarados.
-Red's Charizard used Air Slash!
-Blue's Gyarados is hit for 106 HP (32%)
-
-
-Red's Charizard used Air Slash!
-Blue's Gyarados is hit for 108 HP (33%)
-
-Blue's Gyarados flinched and couldn't move!
-
-
-Red's Charizard used Air Slash!
-Blue's Gyarados is hit for 107 HP (32%)
-
-Blue's Gyarados used Aqua Tail!
-It's super effective!
-Red's Charizard is hit for 297 HP (100%)
-Red's Charizard fained!
-Red took out Snorlax.
-
-
-Blue's Gyarados used Aqua Tail!
-Red's Snorlax is hit for 178 HP (39%)
-
-Red's Snorlax used Rock Tomb!
-It's a critical hit!
-It's super effective!
-Blue's Gyarados is hit for 10 HP (3%)
-Blue's Gyarados fained!
-Blue's Gyarados's Speed fell!
-Blue took out Mankey.
-
-
-Red withdrew Snorlax.
-Red took out Espeon.
-Blue's Mankey used Cross Chop!
-It's not very effective...
-Red's Espeon is hit for 74 HP (27%)
-
-
-Blue withdrew Mankey.
-Blue took out Pidgeot.
-Red's Espeon used Psychic!
-Blue's Pidgeot is hit for 174 HP (57%)
-
-
-Red's Espeon used Psychic!
-Blue's Pidgeot is hit for 133 HP (43%)
-Blue's Pidgeot fained!
+Red's Venusaur healed 62 HP (21%)!
 Blue took out Alakazam.
 
 
-Blue's Alakazam used Energy Ball!
-Red's Espeon is hit for 103 HP (38%)
-
-Red's Espeon used Shadow Ball!
-It's super effective!
-Blue's Alakazam is hit for 177 HP (71%)
-
-
-Blue's Alakazam used Energy Ball!
-Red's Espeon is hit for 94 HP (35%)
-Red's Espeon fained!
+Red withdrew Venusaur.
+Red took out Pikachu.
+Blue's Alakazam used Psychic!
+Red's Pikachu is hit for 211 HP (100%)
+Red's Pikachu fained!
 Red took out Blastoise.
 
 
-Blue's Alakazam used Energy Ball!
-It's super effective!
-Red's Blastoise is hit for 177 HP (59%)
+Blue's Alakazam used Psychic!
+Red's Blastoise is hit for 142 HP (47%)
 
-Red's Blastoise used Surf!
-It's a critical hit!
-Blue's Alakazam is hit for 74 HP (29%)
+Red's Blastoise used Earthquake!
+Blue's Alakazam is hit for 126 HP (50%)
+
+
+Blue's Alakazam used Psychic!
+Red's Blastoise is hit for 143 HP (48%)
+
+Red's Blastoise used Earthquake!
+Blue's Alakazam is hit for 125 HP (50%)
 Blue's Alakazam fained!
 Blue took out Exeggutor.
 
 
-Red's Blastoise used Ice Beam!
+Red withdrew Blastoise.
+Red took out Charizard.
+Blue's Exeggutor used Ancient Power!
 It's super effective!
-Blue's Exeggutor is hit for 184 HP (56%)
+Red's Charizard is hit for 266 HP (90%)
 
-Blue's Exeggutor used Giga Drain!
+
+Red's Charizard used Air Slash!
 It's super effective!
-Red's Blastoise is hit for 122 HP (41%)
+Blue's Exeggutor is hit for 287 HP (87%)
+
+Blue's Exeggutor used Ancient Power!
+It's super effective!
+Red's Charizard is hit for 31 HP (10%)
+Red's Charizard fained!
+Red took out Espeon.
+
+
+Red's Espeon used Shadow Ball!
+It's super effective!
+Blue's Exeggutor is hit for 44 HP (13%)
+Blue's Exeggutor fained!
+Blue's Exeggutor's Special Defense fell!
+Blue took out Pidgeot.
+
+
+Red's Espeon used Psychic!
+Blue's Pidgeot is hit for 174 HP (57%)
+
+Blue's Pidgeot used Brave Bird!
+Red's Espeon is hit for 197 HP (73%)
+Blue's Pidgeot is hurt 66 HP (21%) by recoil!
+
+
+Red's Espeon used Psychic!
+Blue's Pidgeot is hit for 67 HP (22%)
+Blue's Pidgeot fained!
+Blue took out Arcanine.
+
+
+Blue's Arcanine used Extreme Speed!
+Red's Espeon is hit for 74 HP (27%)
+Red's Espeon fained!
+Red took out Blastoise.
+
+
+Blue's Arcanine used Extreme Speed!
+Red's Blastoise is hit for 14 HP (5%)
 Red's Blastoise fained!
-Blue's Exeggutor healed 61 HP (18%)!
 Red took out Snorlax.
 
 
-Blue's Exeggutor used Psychic!
-Red's Snorlax is hit for 119 HP (26%)
+Blue's Arcanine used Flare Blitz!
+Red's Snorlax is hit for 222 HP (48%)
+Blue's Arcanine is hurt 74 HP (23%) by recoil!
 
-Red's Snorlax used Double-Edge!
-Blue's Exeggutor is hit for 158 HP (48%)
-Blue's Exeggutor fained!
-Red's Snorlax is hurt 53 HP (11%) by recoil!
-Blue took out Mankey.
+Red's Snorlax used Earthquake!
+It's super effective!
+Blue's Arcanine is hit for 221 HP (69%)
 
 
-Red withdrew Snorlax.
+Blue's Arcanine used Extreme Speed!
+Red's Snorlax is hit for 100 HP (22%)
+
+Red's Snorlax used Earthquake!
+It's super effective!
+Blue's Arcanine is hit for 26 HP (8%)
+Blue's Arcanine fained!
+Blue took out Gyarados.
+
+
+Blue's Gyarados used Earthquake!
+Red's Snorlax is hit for 139 HP (30%)
+Red's Snorlax fained!
 Red took out Venusaur.
-Blue's Mankey used Acrobatics!
-It's super effective!
-Red's Venusaur is hit for 176 HP (58%)
 
+
+Blue's Gyarados used Earthquake!
+Red's Venusaur is hit for 112 HP (37%)
+
+Red's Venusaur used Sludge Bomb!
+It's a critical hit!
+Blue's Gyarados is hit for 174 HP (53%)
+
+
+Blue's Gyarados used Earthquake!
+Red's Venusaur is hit for 116 HP (39%)
 
 Red's Venusaur used Giga Drain!
-Blue's Mankey is hit for 172 HP (78%)
-Red's Venusaur healed 86 HP (29%)!
+Blue's Gyarados is hit for 90 HP (27%)
+Red's Venusaur healed 45 HP (15%)!
 
-Blue's Mankey used Acrobatics!
-It's super effective!
-Red's Venusaur is hit for 183 HP (61%)
 
+Blue's Gyarados used Earthquake!
+Red's Venusaur is hit for 111 HP (37%)
 
 Red's Venusaur used Giga Drain!
-Blue's Mankey is hit for 49 HP (22%)
-Blue's Mankey fained!
-Red's Venusaur healed 25 HP (8%)!
+Blue's Gyarados is hit for 67 HP (20%)
+Blue's Gyarados fained!
+Red's Venusaur healed 34 HP (11%)!
 
 
 Red defeated Blue!
 Pikachu: 0 HP (0%) left.
 Espeon: 0 HP (0%) left.
-Snorlax: 111 HP (24%) left.
-Venusaur: 53 HP (18%) left.
+Snorlax: 0 HP (0%) left.
+Venusaur: 41 HP (14%) left.
 Charizard: 0 HP (0%) left.
 Blastoise: 0 HP (0%) left.
+
 ```
 
 

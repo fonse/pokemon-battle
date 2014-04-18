@@ -28,7 +28,7 @@ class Pokemon
     @hp = @maxHp
     
     @debug = {}
-    @debug.helpfulTypes = this.calculateHelpfulTypes
+    @debug.helpfulTypes = this.calculateHelpfulTypes()
     this.chooseMoves (new Move moveId for moveId in pokemon.moves)
   
   trainerAndName: ->
