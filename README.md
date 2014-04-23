@@ -3,7 +3,7 @@ Pokemon Battle
 
 This is an automatic pokemon battle simulator born as a fun script for [Hubot](http://hubot.github.com/).
 
-Given 2 pokemon, the simulator will choose a build of 4 moves for each pokemon and then simulate a battle with an elementary AI.
+Given 2 teams of pokemon, the simulator will choose a build of 4 moves for each pokemon and then simulate a battle with an elementary AI.
 
 The pokemon and moves are up to date to Gen VI thanks to the amazing database from https://github.com/veekun/pokedex.
 
@@ -267,7 +267,6 @@ Note that since the implementation of Jump Kick, Sawsbuck will use this move aga
 The following elements are still unsopported, but I'd like to include them in future versions.
 
 - Non-damaging moves
-- Stat levels (boosts and nerfs)
 - Status ailments
 - Abilities
 - Held items
