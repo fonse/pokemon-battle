@@ -121,7 +121,7 @@ class Battle
     result = false
     if (pokemon.hp <= 0)
       pokemon.hp = 0
-      @log.message pokemon.trainerAndName() + " fained!"
+      @log.message pokemon.trainerAndName() + " fainted!"
       result = true
     
     if pokemon.trainer.ablePokemon().length == 0

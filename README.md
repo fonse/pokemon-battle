@@ -38,7 +38,7 @@ Your Arcanine is hurt 87 HP (27%) by recoil!
 
 Your Arcanine used Extreme Speed!
 The foe's Jolteon is hit for 11 HP (4%)
-The foe's Jolteon fained!
+The foe's Jolteon fainted!
 
 You defeated the foe!
 Arcanine: 24 HP (7%) left.
@@ -80,7 +80,7 @@ Blue's Rhydon is hit for 348 HP (99%)
 
 Blue's Rhydon used Hammer Arm!
 Red's Pikachu is hit for 108 HP (51%)
-Red's Pikachu fained!
+Red's Pikachu fainted!
 Blue's Rhydon's Speed rose!
 Red took out Blastoise.
 
@@ -96,7 +96,7 @@ Red's Blastoise used Ice Beam!
 It's a critical hit!
 It's super effective!
 Blue's Exeggutor is hit for 256 HP (77%)
-Blue's Exeggutor fained!
+Blue's Exeggutor fainted!
 Blue took out Gyarados.
 
 
@@ -116,7 +116,7 @@ Blue's Gyarados is hit for 70 HP (21%)
 
 Blue's Gyarados used Earthquake!
 Red's Blastoise is hit for 96 HP (32%)
-Red's Blastoise fained!
+Red's Blastoise fainted!
 Red took out Snorlax.
 
 
@@ -125,7 +125,7 @@ Red's Snorlax is hit for 188 HP (41%)
 
 Red's Snorlax used Double-Edge!
 Blue's Gyarados is hit for 195 HP (59%)
-Blue's Gyarados fained!
+Blue's Gyarados fainted!
 Red's Snorlax is hurt 65 HP (14%) by recoil!
 Blue took out Alakazam.
 
@@ -133,7 +133,7 @@ Blue took out Alakazam.
 Blue's Alakazam used Focus Blast!
 It's super effective!
 Red's Snorlax is hit for 208 HP (45%)
-Red's Snorlax fained!
+Red's Snorlax fainted!
 Red took out Espeon.
 
 
@@ -149,7 +149,7 @@ Blue's Alakazam is hit for 175 HP (70%)
 Blue's Alakazam used Shadow Ball!
 It's super effective!
 Red's Espeon is hit for 84 HP (31%)
-Red's Espeon fained!
+Red's Espeon fainted!
 Red took out Charizard.
 
 
@@ -158,14 +158,14 @@ Red's Charizard is hit for 179 HP (60%)
 
 Red's Charizard used Earthquake!
 Blue's Alakazam is hit for 76 HP (30%)
-Blue's Alakazam fained!
+Blue's Alakazam fainted!
 Blue took out Rhydon.
 
 
 Red's Charizard used Air Slash!
 It's not very effective...
 Blue's Rhydon is hit for 3 HP (1%)
-Blue's Rhydon fained!
+Blue's Rhydon fainted!
 Blue took out Arcanine.
 
 
@@ -176,7 +176,7 @@ Blue's Arcanine is hit for 161 HP (50%)
 Blue's Arcanine used Wild Charge!
 It's super effective!
 Red's Charizard is hit for 118 HP (40%)
-Red's Charizard fained!
+Red's Charizard fainted!
 Blue's Arcanine is hurt 30 HP (9%) by recoil!
 Red took out Venusaur.
 
@@ -185,7 +185,7 @@ Blue's Arcanine used Flare Blitz!
 It's a critical hit!
 It's super effective!
 Red's Venusaur is hit for 301 HP (100%)
-Red's Venusaur fained!
+Red's Venusaur fainted!
 Blue's Arcanine is hurt 100 HP (31%) by recoil!
 
 
@@ -251,7 +251,7 @@ Your Sawsbuck healed 54 HP (18%)!
 The foe's Audino used Ice Beam!
 It's super effective!
 Your Sawsbuck is hit for 132 HP (44%)
-Your Sawsbuck fained!
+Your Sawsbuck fainted!
 
 
 The winner is the foe's Audino with 82 HP (24%) remaining!
