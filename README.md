@@ -7,6 +7,10 @@ Given 2 teams of pokemon, the simulator will choose a build of 4 moves for each 
 
 The pokemon and moves are up to date to Gen VI thanks to the amazing database from https://github.com/veekun/pokedex.
 
+## Online Version
+Check out an online version here:  
+https://pokemon-battle.herokuapp.com/
+
 
 ## Instalation
 You can install using Node Package Manager (npm):
