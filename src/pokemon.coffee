@@ -26,6 +26,7 @@ class Pokemon
     
     @maxHp = 141 + 2 * pokemon.stats.hp
     @hp = @maxHp
+    @ailment = null
     
     @debug = {}
     @debug.helpfulTypes = this.calculateHelpfulTypes()
@@ -143,6 +144,9 @@ class Pokemon
     # If no valid move exists, use Struggle
     if @moves.length == 0
       @moves = [ Move.Struggle ]
+
+  endTurn: (log) ->
+    @ailment.endTurn(this, log) if @ailment?
 
   toString: ->
     return @name

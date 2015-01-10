@@ -60,6 +60,10 @@ class Battle
     attacker = attacker.trainer.mainPokemon # Moves like U-turn can force a switch
     
     this.doAttack defender, attacker if defender.move? and not defenderFainted
+
+    attacker.endTurn(@log)
+    defender.endTurn(@log)
+
     @log.endTurn()
   
   doAttack: (attacker, defender) ->

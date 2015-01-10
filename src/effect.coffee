@@ -12,6 +12,7 @@ FlinchEffect = require './effects/flinchEffect'
 StatStageEffect = require './effects/statStageEffect'
 SwitchOutEffect = require './effects/switchOutEffect'
 BannedEffect = require './effects/bannedEffect'
+StatusAilmentEffect = require './effects/statusAilmentEffect'
 
 class Effect
   this.make = (id, chance) ->
@@ -19,7 +20,8 @@ class Effect
       when 1, 35, 104 then new NoEffect(id)
       
       # Status Ailments - Also 78, 254, 263, 201, 210, 274, 275, 276
-      when 1, 3, 5, 6, 7, 37, 126, 153, 170, 172, 198, 203, 261, 284, 330 then new DefaultEffect(id)
+      when 5 then new StatusAilmentEffect(id, chance)
+      when 3, 6, 7, 37, 126, 153, 170, 172, 198, 203, 261, 284, 330 then new DefaultEffect(id)
       
       # Pesudo-Status Ailments
       when 77, 268, 338 then new DefaultEffect(id)
