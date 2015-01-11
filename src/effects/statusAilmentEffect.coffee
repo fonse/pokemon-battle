@@ -7,18 +7,25 @@ class StatusAilmentEffect extends DefaultEffect
       when 5 then new BurnStatusAilment()
 
   buildMultiplier: (attacker) ->
-    9999
+    ailment = this.ailment()
+    return ailment.battleMultiplier(@chance)
   
   battleMultiplier: (attacker, defender, damage, lethal) ->
-    9999
+    ailment = this.ailment()
+    if ailment.affects(defender)
+      return ailment.battleMultiplier(@chance)
+    else
+      return 1
   
   afterDamage: (attacker, defender, damage, log) ->
     # Ailments cannot be overwritten
     return if defender.ailment? or not defender.isAlive()
 
     ailment = this.ailment()
-    defender.ailment = ailment
+    return unless ailment.affects(defender)
 
+    #TODO Add effect chance
+    defender.ailment = ailment
     ailment.whenInflicted(defender, log)
 
 module.exports = StatusAilmentEffect
