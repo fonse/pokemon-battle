@@ -8,7 +8,7 @@ class DefaultEffect
   criticalRateStage: -> 0
   
   buildMultiplier: (attacker) -> 1
-  battleMultiplier: (attacker, defender, damage, kill) -> 1
+  battleMultiplier: (attacker, defender, damage, lethal) -> 1
   
   afterDamage: (attacker, defender, damage, log) ->
   afterMiss: (attacker, defender, log) ->

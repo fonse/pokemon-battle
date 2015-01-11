@@ -7,7 +7,7 @@ class FlinchEffect extends DefaultEffect
     else
       return 1
   
-  battleMultiplier: (attacker, defender, damage, kill) ->
+  battleMultiplier: (attacker, defender, damage, lethal) ->
     if attacker.speed() > defender.speed()
       return 1 + 0.2 * @chance / 30
     else

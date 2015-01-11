@@ -11,8 +11,8 @@ class MultiHitEffect extends DefaultEffect
       when 30 then 3.166
       when 45, 78 then 2
   
-  battleMultiplier: (attacker, defender, damage, kill) ->
-    if not kill  
+  battleMultiplier: (attacker, defender, damage, lethal) ->
+    if not lethal  
       switch @id
         when 30 then 3.166
         when 45, 78 then 2

@@ -1,7 +1,7 @@
 DefaultEffect = require './defaultEffect'
 
 class SwitchOutEffect extends DefaultEffect
-  battleMultiplier: (attacker, defender, damage, kill) ->
+  battleMultiplier: (attacker, defender, damage, lethal) ->
     if (defender.typeAdvantageAgainst attacker) and attacker.speed() > defender.speed() then 2 else 1
   
   afterDamage: (attacker, defender, damage, log) ->

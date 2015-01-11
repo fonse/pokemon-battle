@@ -13,7 +13,7 @@ class RecoilEffect extends DefaultEffect
       when 49, 199, 254, 263 then 0.85
       when 270 then 0.5
   
-  battleMultiplier: (attacker, defender, damage, kill) ->
+  battleMultiplier: (attacker, defender, damage, lethal) ->
     return 1 - this.recoil(damage, attacker) / attacker.hp / 1.5
   
   afterDamage: (attacker, defender, damage, log) ->

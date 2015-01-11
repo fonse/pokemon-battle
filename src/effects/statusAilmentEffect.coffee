@@ -9,7 +9,7 @@ class StatusAilmentEffect extends DefaultEffect
   buildMultiplier: (attacker) ->
     9999
   
-  battleMultiplier: (attacker, defender, damage, kill) ->
+  battleMultiplier: (attacker, defender, damage, lethal) ->
     9999
   
   afterDamage: (attacker, defender, damage, log) ->

@@ -34,7 +34,7 @@ class StatStageEffect extends DefaultEffect
       # If targets enemy
       return 1 - 0.25 * totalChanges * @chance / 100
       
-  battleMultiplier: (attacker, defender, damage, kill) -> this.buildMultiplier attacker
+  battleMultiplier: (attacker, defender, damage, lethal) -> this.buildMultiplier attacker
   
   afterDamage: (attacker, defender, damage, log) ->
     target = this.target attacker, defender

@@ -39,13 +39,13 @@ class Move
     return base
   
   battleMultiplier: (attacker, defender, damage) ->
-    kill = damage >= defender.hp
+    lethal = damage >= defender.hp
   
     base = @accuracy / 100
-    if @priority > 0 and kill
+    if @priority > 0 and lethal
       base *= 5
       
-    base *= @effect.battleMultiplier attacker, defender, damage, kill
+    base *= @effect.battleMultiplier attacker, defender, damage, lethal
     
     return base
   
