@@ -14,7 +14,7 @@ class StatusAilmentEffect extends DefaultEffect
   
   afterDamage: (attacker, defender, damage, log) ->
     # Ailments cannot be overwritten
-    return if defender.ailment?
+    return if defender.ailment? or not defender.isAlive()
 
     ailment = this.ailment()
     defender.ailment = ailment

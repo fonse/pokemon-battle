@@ -44,6 +44,14 @@ class Pokemon
   spdefense: -> this.stat 'spdefense'
   speed: -> this.stat 'speed'
   
+  takeDamage: (damage) ->
+    damage = @hp if damage > @hp
+    @hp -= damage
+
+    return damage
+
+  isAlive: -> @hp > 0
+
   stat: (stat, options) ->
     options = {} unless options?
     options.ingorePositive = false unless options.ingorePositive?
@@ -52,8 +60,11 @@ class Pokemon
     stageMultiplier = this.statStageMultiplier @stats.stage[stat]
     stageMultiplier = 1 if stageMultiplier > 1 and options.ingorePositive
     stageMultiplier = 1 if stageMultiplier < 1 and options.ingoreNegative
-    
-    return 36 + 2 * @stats.base[stat] * stageMultiplier
+
+    ailmentMultiplier = 1
+    ailmentMultiplier = @ailment.statMultiplier(stat) if @ailment?
+
+    return 36 + 2 * @stats.base[stat] * stageMultiplier * ailmentMultiplier
     
   statStageMultiplier: (stage) ->
     switch stage

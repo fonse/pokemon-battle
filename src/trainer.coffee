@@ -7,7 +7,7 @@ class Trainer
     @team.push(pokemon)
   
   ablePokemon: ->
-    pokemon for pokemon in @team when pokemon.hp > 0
+    pokemon for pokemon in @team when pokemon.isAlive()
   
   firstPokemon: ->
     @mainPokemon = this.team[0];

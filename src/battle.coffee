@@ -95,14 +95,13 @@ class Battle
           critical = Math.random() < this.criticalChance attacker.move.criticalRateStage()
           random = Math.random() * (1 - 0.85) + 0.85
           damage = this.calculateDamage attacker.move, attacker, defender, critical, random
-          damage = defender.hp if damage > defender.hp
-          
+          damage = defender.takeDamage(damage)
+
           @log.message "It's a critical hit!" if critical
           @log.message "It's super effective!" if effectiveness > 1
           @log.message "It's not very effective..." if effectiveness < 1
-          @log.message defender.trainerAndName() + " is hit for " + damage + " HP (" + Math.round(damage / defender.maxHp * 100) + "%)"
+          @log.message defender.trainerAndName() + " was hit for " + damage + " HP (" + Math.round(damage / defender.maxHp * 100) + "%)"
           
-          defender.hp -= damage
           defenderFainted = this.checkFaint defender
             
           attacker.move.afterDamage attacker, defender, damage, @log
