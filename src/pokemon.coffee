@@ -28,6 +28,7 @@ class Pokemon
     @hp = @maxHp
     @ailment = null
     
+    @faintObservers = []
     @debug = {}
     @debug.helpfulTypes = this.calculateHelpfulTypes()
     this.chooseMoves (new Move moveId for moveId in pokemon.moves)
@@ -44,13 +45,23 @@ class Pokemon
   spdefense: -> this.stat 'spdefense'
   speed: -> this.stat 'speed'
   
-  takeDamage: (damage) ->
+  takeDamage: (damage, message, log) ->
     damage = @hp if damage > @hp
     @hp -= damage
+
+    message = message.replace '%(pokemon)', this.trainerAndName()
+    message = message.replace '%(damage)', damage + " HP (" + Math.round(damage / @maxHp * 100) + "%)"
+    log.message message
+
+    unless this.isAlive()
+      observer.notifyFaint(this) for observer in @faintObservers
 
     return damage
 
   isAlive: -> @hp > 0
+
+  subscribeToFaint: (observer) ->
+    @faintObservers.push(observer)
 
   stat: (stat, options) ->
     options = {} unless options?

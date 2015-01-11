@@ -17,8 +17,7 @@ class RecoilEffect extends DefaultEffect
     return 1 - this.recoil(damage, attacker) / attacker.hp / 1.5
   
   afterDamage: (attacker, defender, damage, log) ->
-    recoil = attacker.takeDamage(this.recoil damage, attacker)
-    log.message attacker.trainerAndName() + " was hurt " +  recoil + " HP (" + Math.round(recoil / attacker.maxHp * 100) + "%) by recoil!"
+    attacker.takeDamage (this.recoil damage, attacker), "%(pokemon) was hurt %(damage) by recoil!", log
 
   fullSupport: -> @id not in [254, 263]
   

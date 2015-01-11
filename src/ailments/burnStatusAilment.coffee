@@ -10,7 +10,6 @@ class BurnStatusAilment extends StatusAilment
       else 1
 
   endTurn: (pokemon, log) ->
-    damage = pokemon.takeDamage Math.round(pokemon.maxHp / 8)
-    log.message pokemon.trainerAndName() + " was hurt " +  damage + " HP (" + Math.round(damage / pokemon.maxHp * 100) + "%) by its burn!"
+    pokemon.takeDamage Math.round(pokemon.maxHp / 8), "%(pokemon) was hurt %(damage) by its burn!", log
 
 module.exports = BurnStatusAilment
