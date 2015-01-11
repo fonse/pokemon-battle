@@ -2,7 +2,7 @@ class DefaultEffect
   constructor: (@id, @chance) ->
   
   power: (base) -> base
-  effectiveness: (attacker, defender) ->
+  effectiveness: (effectiveness, attacker, defender) -> effectiveness
   
   hits: -> 1
   criticalRateStage: -> 0

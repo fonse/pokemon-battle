@@ -1,5 +1,6 @@
 DefaultEffect = require './effects/defaultEffect'
 NoEffect = require './effects/noEffect'
+DualEffect = require './effects/dualEffect'
 HealEffect = require './effects/healEffect'
 RecoilEffect = require './effects/recoilEffect'
 RecoilOnMissEffect = require './effects/recoilOnMissEffect'
@@ -19,6 +20,8 @@ class Effect
     switch id
       when 1, 35, 104 then new NoEffect(id)
       
+      when 254 then new DualEffect [(new RecoilEffect id), (new StatusAilmentEffect id, chance)]
+
       # Status Ailments - Also 78, 254, 263, 201, 210, 274, 275, 276
       when 5 then new StatusAilmentEffect(id, chance)
       when 3, 6, 7, 37, 126, 153, 170, 172, 198, 203, 261, 284, 330 then new DefaultEffect(id)
@@ -43,7 +46,7 @@ class Effect
       
       # Fully Implemented
       when 4, 348, 353 then new HealEffect(id)
-      when 49, 199, 254, 263, 270 then new RecoilEffect(id)
+      when 49, 199, 263, 270 then new RecoilEffect(id)
       when 46 then new RecoilOnMissEffect(id)
       when 255 then new StruggleEffect(id)
       when 30, 45, 78 then new MultiHitEffect(id)
