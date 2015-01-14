@@ -135,7 +135,7 @@
     "id": 12,
     "name": "Guillotine",
     "type": 1,
-    "power": 1,
+    "power": 0,
     "accuracy": 30,
     "pp": 5,
     "priority": 0,
@@ -375,7 +375,7 @@
     "id": 32,
     "name": "Horn Drill",
     "type": 1,
-    "power": 1,
+    "power": 0,
     "accuracy": 30,
     "pp": 5,
     "priority": 0,
@@ -513,7 +513,7 @@
     "priority": 0,
     "damage_class": "non-damaging",
     "effect": 20,
-    "effect_chance": 0
+    "effect_chance": 100
   },
   "44": {
     "id": 44,
@@ -579,7 +579,7 @@
     "id": 49,
     "name": "Sonic Boom",
     "type": 1,
-    "power": 1,
+    "power": 0,
     "accuracy": 90,
     "pp": 20,
     "priority": 0,
@@ -785,7 +785,7 @@
     "type": 2,
     "power": 80,
     "accuracy": 80,
-    "pp": 25,
+    "pp": 20,
     "priority": 0,
     "damage_class": "physical",
     "effect": 49,
@@ -795,7 +795,7 @@
     "id": 67,
     "name": "Low Kick",
     "type": 2,
-    "power": 1,
+    "power": 0,
     "accuracy": 100,
     "pp": 20,
     "priority": 0,
@@ -807,7 +807,7 @@
     "id": 68,
     "name": "Counter",
     "type": 2,
-    "power": 1,
+    "power": 0,
     "accuracy": 100,
     "pp": 20,
     "priority": -5,
@@ -819,7 +819,7 @@
     "id": 69,
     "name": "Seismic Toss",
     "type": 2,
-    "power": 1,
+    "power": 0,
     "accuracy": 100,
     "pp": 20,
     "priority": 0,
@@ -975,7 +975,7 @@
     "id": 82,
     "name": "Dragon Rage",
     "type": 16,
-    "power": 1,
+    "power": 0,
     "accuracy": 100,
     "pp": 10,
     "priority": 0,
@@ -1071,7 +1071,7 @@
     "id": 90,
     "name": "Fissure",
     "type": 5,
-    "power": 1,
+    "power": 0,
     "accuracy": 30,
     "pp": 5,
     "priority": 0,
@@ -1203,7 +1203,7 @@
     "id": 101,
     "name": "Night Shade",
     "type": 8,
-    "power": 1,
+    "power": 0,
     "accuracy": 100,
     "pp": 15,
     "priority": 0,
@@ -1395,7 +1395,7 @@
     "id": 117,
     "name": "Bide",
     "type": 1,
-    "power": 1,
+    "power": 0,
     "accuracy": 0,
     "pp": 10,
     "priority": 1,
@@ -1779,7 +1779,7 @@
     "id": 149,
     "name": "Psywave",
     "type": 14,
-    "power": 1,
+    "power": 0,
     "accuracy": 100,
     "pp": 15,
     "priority": 0,
@@ -1935,7 +1935,7 @@
     "id": 162,
     "name": "Super Fang",
     "type": 1,
-    "power": 1,
+    "power": 0,
     "accuracy": 90,
     "pp": 10,
     "priority": 0,
@@ -2091,7 +2091,7 @@
     "id": 175,
     "name": "Flail",
     "type": 1,
-    "power": 1,
+    "power": 0,
     "accuracy": 100,
     "pp": 15,
     "priority": 0,
@@ -2139,7 +2139,7 @@
     "id": 179,
     "name": "Reversal",
     "type": 2,
-    "power": 1,
+    "power": 0,
     "accuracy": 100,
     "pp": 15,
     "priority": 0,
@@ -2583,7 +2583,7 @@
     "id": 216,
     "name": "Return",
     "type": 1,
-    "power": 1,
+    "power": 0,
     "accuracy": 100,
     "pp": 20,
     "priority": 0,
@@ -2595,7 +2595,7 @@
     "id": 217,
     "name": "Present",
     "type": 1,
-    "power": 1,
+    "power": 0,
     "accuracy": 90,
     "pp": 15,
     "priority": 0,
@@ -2607,7 +2607,7 @@
     "id": 218,
     "name": "Frustration",
     "type": 1,
-    "power": 1,
+    "power": 0,
     "accuracy": 100,
     "pp": 20,
     "priority": 0,
@@ -2655,7 +2655,7 @@
     "id": 222,
     "name": "Magnitude",
     "type": 5,
-    "power": 1,
+    "power": 0,
     "accuracy": 100,
     "pp": 30,
     "priority": 0,
@@ -2907,7 +2907,7 @@
     "id": 243,
     "name": "Mirror Coat",
     "type": 14,
-    "power": 1,
+    "power": 0,
     "accuracy": 100,
     "pp": 20,
     "priority": -5,
@@ -3003,7 +3003,7 @@
     "id": 251,
     "name": "Beat Up",
     "type": 17,
-    "power": 1,
+    "power": 0,
     "accuracy": 100,
     "pp": 10,
     "priority": 0,
@@ -3051,7 +3051,7 @@
     "id": 255,
     "name": "Spit Up",
     "type": 1,
-    "power": 1,
+    "power": 0,
     "accuracy": 100,
     "pp": 10,
     "priority": 0,
@@ -3377,7 +3377,7 @@
     "type": 17,
     "power": 65,
     "accuracy": 100,
-    "pp": 25,
+    "pp": 20,
     "priority": 0,
     "damage_class": "physical",
     "effect": 189,
@@ -3387,7 +3387,7 @@
     "id": 283,
     "name": "Endeavor",
     "type": 1,
-    "power": 1,
+    "power": 0,
     "accuracy": 100,
     "pp": 5,
     "priority": 0,
@@ -3657,7 +3657,7 @@
     "priority": 0,
     "damage_class": "physical",
     "effect": 203,
-    "effect_chance": 30
+    "effect_chance": 50
   },
   "306": {
     "id": 306,
@@ -3939,7 +3939,7 @@
     "id": 329,
     "name": "Sheer Cold",
     "type": 15,
-    "power": 1,
+    "power": 0,
     "accuracy": 30,
     "pp": 5,
     "priority": 0,
@@ -4311,7 +4311,7 @@
     "id": 360,
     "name": "Gyro Ball",
     "type": 9,
-    "power": 1,
+    "power": 0,
     "accuracy": 100,
     "pp": 5,
     "priority": 0,
@@ -4347,7 +4347,7 @@
     "id": 363,
     "name": "Natural Gift",
     "type": 1,
-    "power": 1,
+    "power": 0,
     "accuracy": 100,
     "pp": 15,
     "priority": 0,
@@ -4407,7 +4407,7 @@
     "id": 368,
     "name": "Metal Burst",
     "type": 9,
-    "power": 1,
+    "power": 0,
     "accuracy": 100,
     "pp": 10,
     "priority": 0,
@@ -4479,7 +4479,7 @@
     "id": 374,
     "name": "Fling",
     "type": 17,
-    "power": 1,
+    "power": 0,
     "accuracy": 100,
     "pp": 10,
     "priority": 0,
@@ -4503,7 +4503,7 @@
     "id": 376,
     "name": "Trump Card",
     "type": 1,
-    "power": 1,
+    "power": 0,
     "accuracy": 0,
     "pp": 5,
     "priority": 0,
@@ -4527,7 +4527,7 @@
     "id": 378,
     "name": "Wring Out",
     "type": 1,
-    "power": 1,
+    "power": 0,
     "accuracy": 100,
     "pp": 5,
     "priority": 0,
@@ -4575,7 +4575,7 @@
     "id": 382,
     "name": "Me First",
     "type": 1,
-    "power": 1,
+    "power": 0,
     "accuracy": 0,
     "pp": 20,
     "priority": 0,
@@ -4623,7 +4623,7 @@
     "id": 386,
     "name": "Punishment",
     "type": 17,
-    "power": 1,
+    "power": 0,
     "accuracy": 100,
     "pp": 5,
     "priority": 0,
@@ -5355,7 +5355,7 @@
     "id": 447,
     "name": "Grass Knot",
     "type": 12,
-    "power": 1,
+    "power": 0,
     "accuracy": 100,
     "pp": 20,
     "priority": 0,
@@ -5373,7 +5373,7 @@
     "priority": 0,
     "damage_class": "special",
     "effect": 268,
-    "effect_chance": 0
+    "effect_chance": 100
   },
   "449": {
     "id": 449,
@@ -5535,7 +5535,7 @@
     "id": 462,
     "name": "Crush Grip",
     "type": 1,
-    "power": 1,
+    "power": 0,
     "accuracy": 100,
     "pp": 5,
     "priority": 0,
@@ -5799,7 +5799,7 @@
     "id": 484,
     "name": "Heavy Slam",
     "type": 9,
-    "power": 1,
+    "power": 0,
     "accuracy": 100,
     "pp": 10,
     "priority": 0,
@@ -5813,7 +5813,7 @@
     "type": 14,
     "power": 120,
     "accuracy": 100,
-    "pp": 15,
+    "pp": 10,
     "priority": 0,
     "damage_class": "special",
     "effect": 293,
@@ -5823,7 +5823,7 @@
     "id": 486,
     "name": "Electro Ball",
     "type": 13,
-    "power": 1,
+    "power": 0,
     "accuracy": 100,
     "pp": 10,
     "priority": 0,
@@ -6171,7 +6171,7 @@
     "id": 515,
     "name": "Final Gambit",
     "type": 2,
-    "power": 1,
+    "power": 0,
     "accuracy": 100,
     "pp": 5,
     "priority": 0,
@@ -6411,7 +6411,7 @@
     "id": 535,
     "name": "Heat Crash",
     "type": 10,
-    "power": 1,
+    "power": 0,
     "accuracy": 100,
     "pp": 10,
     "priority": 0,
@@ -6681,7 +6681,7 @@
     "priority": 0,
     "damage_class": "physical",
     "effect": 335,
-    "effect_chance": 0
+    "effect_chance": 100
   },
   "558": {
     "id": 558,
@@ -6753,7 +6753,7 @@
     "priority": 0,
     "damage_class": "non-damaging",
     "effect": 342,
-    "effect_chance": 0
+    "effect_chance": 100
   },
   "564": {
     "id": 564,
@@ -6813,7 +6813,7 @@
     "priority": 0,
     "damage_class": "non-damaging",
     "effect": 346,
-    "effect_chance": 0
+    "effect_chance": 100
   },
   "569": {
     "id": 569,
@@ -6873,7 +6873,7 @@
     "priority": 0,
     "damage_class": "special",
     "effect": 350,
-    "effect_chance": 0
+    "effect_chance": 10
   },
   "574": {
     "id": 574,
@@ -6897,7 +6897,7 @@
     "priority": 0,
     "damage_class": "non-damaging",
     "effect": 351,
-    "effect_chance": 0
+    "effect_chance": 100
   },
   "576": {
     "id": 576,
@@ -6930,7 +6930,7 @@
     "power": 0,
     "accuracy": 0,
     "pp": 10,
-    "priority": 4,
+    "priority": 3,
     "damage_class": "non-damaging",
     "effect": 354,
     "effect_chance": 0
@@ -6945,7 +6945,7 @@
     "priority": 0,
     "damage_class": "non-damaging",
     "effect": 355,
-    "effect_chance": 0
+    "effect_chance": 100
   },
   "580": {
     "id": 580,
@@ -6993,7 +6993,7 @@
     "priority": 0,
     "damage_class": "physical",
     "effect": 69,
-    "effect_chance": 30
+    "effect_chance": 10
   },
   "584": {
     "id": 584,
@@ -7065,7 +7065,7 @@
     "priority": 0,
     "damage_class": "non-damaging",
     "effect": 19,
-    "effect_chance": 0
+    "effect_chance": 100
   },
   "590": {
     "id": 590,
@@ -7077,7 +7077,31 @@
     "priority": 0,
     "damage_class": "non-damaging",
     "effect": 361,
-    "effect_chance": 0
+    "effect_chance": 100
+  },
+  "591": {
+    "id": 591,
+    "name": "Diamond Storm",
+    "type": 6,
+    "power": 100,
+    "accuracy": 95,
+    "pp": 5,
+    "priority": 0,
+    "damage_class": "physical",
+    "effect": 139,
+    "effect_chance": 50
+  },
+  "592": {
+    "id": 592,
+    "name": "Steam Eruption",
+    "type": 11,
+    "power": 110,
+    "accuracy": 95,
+    "pp": 5,
+    "priority": 0,
+    "damage_class": "special",
+    "effect": 5,
+    "effect_chance": 30
   },
   "594": {
     "id": 594,
@@ -7089,7 +7113,7 @@
     "priority": 1,
     "damage_class": "physical",
     "effect": 30,
-    "effect_chance": 100
+    "effect_chance": 0
   },
   "595": {
     "id": 595,
@@ -7120,7 +7144,7 @@
     "name": "Aromatic Mist",
     "type": 18,
     "power": 0,
-    "accuracy": 100,
+    "accuracy": 0,
     "pp": 20,
     "priority": 0,
     "damage_class": "non-damaging",
@@ -7149,7 +7173,7 @@
     "priority": 0,
     "damage_class": "non-damaging",
     "effect": 364,
-    "effect_chance": 0
+    "effect_chance": 100
   },
   "600": {
     "id": 600,
@@ -7223,18 +7247,6 @@
     "effect": 1,
     "effect_chance": 0
   },
-  "606": {
-    "id": 606,
-    "name": "Celebrate",
-    "type": 1,
-    "power": 0,
-    "accuracy": 0,
-    "pp": 40,
-    "priority": 0,
-    "damage_class": "non-damaging",
-    "effect": 86,
-    "effect_chance": 0
-  },
   "608": {
     "id": 608,
     "name": "Baby-Doll Eyes",
@@ -7259,6 +7271,18 @@
     "effect": 7,
     "effect_chance": 100
   },
+  "610": {
+    "id": 610,
+    "name": "Hold Back",
+    "type": 1,
+    "power": 40,
+    "accuracy": 100,
+    "pp": 40,
+    "priority": 0,
+    "damage_class": "physical",
+    "effect": 102,
+    "effect_chance": 0
+  },
   "611": {
     "id": 611,
     "name": "Infestation",
@@ -7269,7 +7293,7 @@
     "priority": 0,
     "damage_class": "special",
     "effect": 43,
-    "effect_chance": 0
+    "effect_chance": 100
   },
   "612": {
     "id": 612,
@@ -7305,6 +7329,18 @@
     "priority": 0,
     "damage_class": "physical",
     "effect": 1,
+    "effect_chance": 0
+  },
+  "617": {
+    "id": 617,
+    "name": "Light of Ruin",
+    "type": 18,
+    "power": 140,
+    "accuracy": 90,
+    "pp": 5,
+    "priority": 0,
+    "damage_class": "special",
+    "effect": 270,
     "effect_chance": 0
   }
 }

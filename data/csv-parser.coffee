@@ -1,7 +1,7 @@
 csv = require 'csv'
 fs = require 'fs'
 
-path = process.argv[2] ? __dirname + '/csv'
+path = process.argv[2] ? __dirname + '/../pokedex/pokedex/data/csv'
 options = { delimiter: ',', escape: '"', columns: true }
 
 language = '9'
@@ -97,7 +97,7 @@ fs.exists path, (exists) ->
       moves = {}
       damages = { 1: 'non-damaging', 2:'physical', 3:'special' }
       for row in rows
-        if row.id < 10000
+        if row.id < 10000 and +row.effect_id < 10000
           moves[row.id] = {
             id: +row.id
             name: '',

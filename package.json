@@ -27,7 +27,7 @@
   },
   
   "devDependencies": {
-    "csv": "> 0.3"
+    "csv": "0.3"
   },
 
   "engines": {
