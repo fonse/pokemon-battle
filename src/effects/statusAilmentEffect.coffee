@@ -1,6 +1,7 @@
 DefaultEffect = require './defaultEffect'
 BurnStatusAilment = require '../ailments/burnStatusAilment'
 ParalysisStatusAilment = require '../ailments/paralysisStatusAilment'
+FreezeStatusAilment = require '../ailments/freezeStatusAilment'
 PoisonStatusAilment = require '../ailments/poisonStatusAilment'
 BadPoisonStatusAilment = require '../ailments/badPoisonStatusAilment'
 
@@ -9,6 +10,7 @@ class StatusAilmentEffect extends DefaultEffect
     switch @id
       when 3, 78, 210 then new PoisonStatusAilment
       when 5, 201, 254, 274 then new BurnStatusAilment
+      when 6, 261, 275 then new FreezeStatusAilment
       when 7, 153, 263, 276 then new ParalysisStatusAilment
       when 203 then new BadPoisonStatusAilment
 

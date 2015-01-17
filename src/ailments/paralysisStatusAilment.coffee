@@ -10,6 +10,7 @@ class ParalysisStatusAilment extends StatusAilment
   canAttack: (pokemon, log) ->
     if Math.random() < 0.25
       log.message pokemon.trainerAndName() + " is paralyzed! It can't move!"
+      return false
 
   statMultiplier: (stat) ->
     switch stat

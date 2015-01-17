@@ -127,7 +127,7 @@ class Pokemon
     ( type for type in @types when type.effectiveAgainst pokemon.types ).length > 0
   
   canAttack: (log) ->
-    if @ailment? and @ailment.canAttack this, log
+    if @ailment? and not @ailment.canAttack this, log
       return false 
 
     if @flinch

@@ -4,7 +4,7 @@ class StatusAilment
   whenInflicted: (pokemon, log) ->
   whenSwitchedOut: (pokemon) ->
   
-  canAttack: (pokemon, log) ->
+  canAttack: (pokemon, log) -> true
   endTurn: (pokemon, log) ->
 
   statMultiplier: (stat) -> 1

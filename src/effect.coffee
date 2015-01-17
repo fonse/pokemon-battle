@@ -22,12 +22,12 @@ class Effect
       
       when 254, 263 then new DualEffect [(new RecoilEffect id), (new StatusAilmentEffect id, chance)]
       when 78 then new DualEffect [(new MultiHitEffect id), (new StatusAilmentEffect id, chance)]
-      when 274, 276 then new DualEffect [(new FlinchEffect id, chance), (new StatusAilmentEffect id, chance)]
+      when 274, 275, 276 then new DualEffect [(new FlinchEffect id, chance), (new StatusAilmentEffect id, chance)]
       when 201, 210 then new DualEffect [(new CritRateEffect id), (new StatusAilmentEffect id, chance)]
 
-      # Status Ailments - Also 126, 275
-      when 3, 5, 7, 153, 203 then new StatusAilmentEffect(id, chance)
-      when 6, 7, 37, 126, 153, 170, 172, 198, 261, 284, 330 then new DefaultEffect(id)
+      # Status Ailments - Also 126
+      when 3, 5, 6, 7, 153, 203, 261 then new StatusAilmentEffect(id, chance)
+      when 37, 126, 153, 170, 172, 198, 284, 330 then new DefaultEffect(id)
       
       # Pesudo-Status Ailments
       when 77, 268, 338 then new DefaultEffect(id)
@@ -56,7 +56,7 @@ class Effect
       when 318 then new DoublePowerEffect(id)
       when 197 then new WeightDependentEffect(id)
       when 44, 289 then new CritRateEffect(id)
-      when 32, 147, 151, 275 then new FlinchEffect(id, chance)
+      when 32, 147, 151 then new FlinchEffect(id, chance)
       when 21, 69, 70, 71, 72, 73, 139, 140, 141, 205, 219, 230, 272, 277, 296, 297, 331, 335 then new StatStageEffect(id, chance)
       else new BannedEffect(id)
 

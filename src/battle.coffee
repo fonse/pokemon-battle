@@ -78,43 +78,41 @@ class Battle
     @log.endTurn()
   
   doAttack: (attacker, defender) ->
-    unless attacker.canAttack @log
-      return
-  
-    @log.message attacker.trainerAndName() + " used " + attacker.move.name + "!"
-    effectiveness = attacker.move.effectiveness attacker, defender
-    miss = false
+    if attacker.canAttack @log
+      @log.message attacker.trainerAndName() + " used " + attacker.move.name + "!"
+      effectiveness = attacker.move.effectiveness attacker, defender
+      miss = false
 
-    if effectiveness == 0
-      @log.message "It doesn't affect " + defender.trainerAndName() + "..."
-      miss = true
-
-    else
-      if Math.random() * 100 > attacker.move.accuracy
-        @log.message attacker.trainerAndName() + "'s attack missed!"
+      if effectiveness == 0
+        @log.message "It doesn't affect " + defender.trainerAndName() + "..."
         miss = true
-      
-      else
-        hits = attacker.move.hits()
-        hit = 0
-        miss = false
-        
-        @stopMultiHit = false
-        until (hit++ == hits) or @stopMultiHit
-          critical = Math.random() < this.criticalChance attacker.move.criticalRateStage()
-          random = Math.random() * (1 - 0.85) + 0.85
 
-          @log.message "It's a critical hit!" if critical
-          @log.message "It's super effective!" if effectiveness > 1
-          @log.message "It's not very effective..." if effectiveness < 1
+      else
+        if Math.random() * 100 > attacker.move.accuracy
+          @log.message attacker.trainerAndName() + "'s attack missed!"
+          miss = true
+        
+        else
+          hits = attacker.move.hits()
+          hit = 0
+          miss = false
           
-          damage = @damageCalculator.calculate attacker.move, attacker, defender, critical, random
-          defender.takeDamage damage, "%(pokemon) was hit for %(damage)", @log
-          
-          attacker.move.afterDamage attacker, defender, damage, @log
-          
-    if miss
-      attacker.move.afterMiss attacker, defender, @log
+          @stopMultiHit = false
+          until (hit++ == hits) or @stopMultiHit
+            critical = Math.random() < this.criticalChance attacker.move.criticalRateStage()
+            random = Math.random() * (1 - 0.85) + 0.85
+
+            @log.message "It's a critical hit!" if critical
+            @log.message "It's super effective!" if effectiveness > 1
+            @log.message "It's not very effective..." if effectiveness < 1
+            
+            damage = @damageCalculator.calculate attacker.move, attacker, defender, critical, random
+            defender.takeDamage damage, "%(pokemon) was hit for %(damage)", @log
+            
+            attacker.move.afterDamage attacker, defender, damage, @log
+            
+      if miss
+        attacker.move.afterMiss attacker, defender, @log
     
     @log.endAttack()
   
