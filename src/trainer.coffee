@@ -58,7 +58,7 @@ class Trainer
     
     bestChoices = (pokemon for pokemon in candidates when pokemon.score == maxScore)
     @mainPokemon = bestChoices[Math.floor(Math.random() * bestChoices.length)]
-    @mainPokemon.move = null if @mainPokemon?
+    @mainPokemon.whenSwitchedOut() if @mainPokemon?
     
     log.message this.nameOrYou() + " took out " + @mainPokemon + "."
     return @mainPokemon

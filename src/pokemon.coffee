@@ -126,6 +126,10 @@ class Pokemon
   typeAdvantageAgainst: (pokemon) ->
     ( type for type in @types when type.effectiveAgainst pokemon.types ).length > 0
   
+  whenSwitchedOut: -> 
+    @move = null
+    @ailment.whenSwitchedOut(this) if @ailment
+
   endTurn: (log) ->
     @ailment.endTurn(this, log) if @ailment?
 

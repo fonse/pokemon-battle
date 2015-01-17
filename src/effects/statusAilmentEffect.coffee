@@ -1,12 +1,14 @@
 DefaultEffect = require './defaultEffect'
 BurnStatusAilment = require '../ailments/burnStatusAilment'
 PoisonStatusAilment = require '../ailments/poisonStatusAilment'
+BadPoisonStatusAilment = require '../ailments/badPoisonStatusAilment'
 
 class StatusAilmentEffect extends DefaultEffect
   ailment: () ->
     switch @id
-      when 5, 254 then new BurnStatusAilment()
-      when 3, 78 then new PoisonStatusAilment()
+      when 5, 254 then new BurnStatusAilment
+      when 3, 78 then new PoisonStatusAilment
+      when 203 then new BadPoisonStatusAilment
 
   buildMultiplier: (attacker) ->
     ailment = this.ailment()

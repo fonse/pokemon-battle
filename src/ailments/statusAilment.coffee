@@ -1,6 +1,10 @@
 class StatusAilment
   affects: (pokemon) -> true
+  
   whenInflicted: (pokemon, log) ->
+  whenSwitchedOut: (pokemon) ->
+  
+  beginTurn: (pokemon, log) ->
   endTurn: (pokemon, log) ->
 
   statMultiplier: (stat) -> 1
