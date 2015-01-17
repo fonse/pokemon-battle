@@ -2,9 +2,12 @@ Type = require './type'
 Move = require './move'
 Pokemon = require './pokemon'
 Log = require './log'
+DamageCalculator = require './damageCalculator'
 
 class Battle
   constructor: (@trainer1, @trainer2) ->
+    @damageCalculator = new DamageCalculator
+
     @trainer1.firstPokemon()
     @trainer2.firstPokemon()
 
@@ -32,8 +35,8 @@ class Battle
     pokemon2 = @trainer2.mainPokemon
 
     # Choose moves
-    this.chooseMove pokemon1, pokemon2
-    this.chooseMove pokemon2, pokemon1
+    pokemon1.chooseMove pokemon2
+    pokemon2.chooseMove pokemon1
     throw new Error("One of the pokemon doesn't have an attack move.") unless pokemon1.move? and pokemon2.move?
     
     # Clear temp status
@@ -106,7 +109,7 @@ class Battle
           @log.message "It's super effective!" if effectiveness > 1
           @log.message "It's not very effective..." if effectiveness < 1
           
-          damage = this.calculateDamage attacker.move, attacker, defender, critical, random
+          damage = @damageCalculator.calculate attacker.move, attacker, defender, critical, random
           defender.takeDamage damage, "%(pokemon) was hit for %(damage)", @log
           
           attacker.move.afterDamage attacker, defender, damage, @log
@@ -126,21 +129,6 @@ class Battle
 
     pokemon.trainer.switchPokemon otherTrainer.mainPokemon, @log unless @winner
   
-  chooseMove: (attacker, defender) ->
-    bestMove = null
-    bestDamage = -1
-    for move in attacker.moves
-      damage = this.calculateDamage move, attacker, defender
-      damage = defender.hp if defender.hp < damage 
-      
-      damage *= move.battleMultiplier attacker, defender, damage
-      
-      if damage > bestDamage
-        bestMove = move
-        bestDamage = damage
-    
-    attacker.move = bestMove
-  
   criticalChance: (stage) ->
     switch stage
       when 0 then 1/16
@@ -148,15 +136,5 @@ class Battle
       when 2 then 1/2
       else 1
   
-  calculateDamage: (move, attacker, defender, critical = false, random = 0.9) ->
-    attack = attacker.stat move.attackStat(), {ingoreNegative: critical}
-    defense = defender.stat move.defenseStat(), {ingorePositive: critical}
-    
-    stab = if move.type.id in (attacker.types.map (type) -> type.id) then 1.5 else 1
-    type = move.effectiveness attacker, defender
-    crit = if critical then 1.5 else 1
-    
-    return Math.round (0.88 * (attack / defense) * move.power(attacker, defender) + 2 ) * stab * type * crit * random
-    
 
 module.exports = Battle
