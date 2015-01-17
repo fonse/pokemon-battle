@@ -78,9 +78,8 @@ class Battle
     @log.endTurn()
   
   doAttack: (attacker, defender) ->
-    if attacker.flinch
-      @log.message attacker.trainerAndName() + " flinched and couldn't move!"
-      return false
+    unless attacker.canAttack @log
+      return
   
     @log.message attacker.trainerAndName() + " used " + attacker.move.name + "!"
     effectiveness = attacker.move.effectiveness attacker, defender

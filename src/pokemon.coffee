@@ -126,6 +126,16 @@ class Pokemon
   typeAdvantageAgainst: (pokemon) ->
     ( type for type in @types when type.effectiveAgainst pokemon.types ).length > 0
   
+  canAttack: (log) ->
+    if @ailment? and @ailment.canAttack this, log
+      return false 
+
+    if @flinch
+      @log.message attacker.trainerAndName() + " flinched and couldn't move!"
+      return false
+
+    return true
+
   whenSwitchedOut: -> 
     @move = null
     @ailment.whenSwitchedOut(this) if @ailment
