@@ -27,6 +27,8 @@ class Pokemon
     
     @maxHp = 141 + 2 * pokemon.stats.hp
     @hp = @maxHp
+
+    @conditions = {}
     @ailment = null
     
     @faintObservers = []
@@ -130,18 +132,20 @@ class Pokemon
     if @ailment? and not @ailment.canAttack this, log
       return false 
 
-    if @flinch
-      @log.message attacker.trainerAndName() + " flinched and couldn't move!"
-      return false
+    for _, condition of @conditions
+      return false unless condition.canAttack this, log
 
     return true
 
   whenSwitchedOut: -> 
     @move = null
-    @ailment.whenSwitchedOut(this) if @ailment
+    @ailment.whenSwitchedOut this if @ailment
 
   endTurn: (log) ->
-    @ailment.endTurn(this, log) if @ailment?
+    @ailment.endTurn this, log if @ailment?
+
+    for _, condition of @conditions
+      condition.endTurn this, log
 
   toString: ->
     return @name

@@ -39,10 +39,6 @@ class Battle
     pokemon2.chooseMove pokemon1
     throw new Error("One of the pokemon doesn't have an attack move.") unless pokemon1.move? and pokemon2.move?
     
-    # Clear temp status
-    pokemon1.flinch = false
-    pokemon2.flinch = false
-    
     # Switch out pokemon?
     newPokemon1 = pokemon1.trainer.maybeSwitchOut pokemon1, pokemon2, @log
     newPokemon2 = pokemon2.trainer.maybeSwitchOut pokemon2, pokemon1, @log

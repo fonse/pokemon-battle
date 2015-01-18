@@ -16,12 +16,12 @@ class StatusAilmentEffect extends DefaultEffect
 
   buildMultiplier: (attacker) ->
     ailment = this.ailment()
-    return ailment.battleMultiplier(@chance)
+    return ailment.battleMultiplier @chance
   
   battleMultiplier: (attacker, defender, damage, lethal) ->
     ailment = this.ailment()
-    if ailment.affects(defender)
-      return ailment.battleMultiplier(@chance)
+    if not defender.ailment? and ailment.affects(defender)
+      return ailment.battleMultiplier @chance
     else
       return 1
   
