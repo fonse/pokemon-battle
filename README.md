@@ -267,7 +267,6 @@ Note that since the implementation of Jump Kick, Sawsbuck will use this move aga
 The following elements are still unsopported, but I'd like to include them in future versions.
 
 - Non-damaging moves
-- Status ailments
 - Abilities
 - Held items
 - EVs
