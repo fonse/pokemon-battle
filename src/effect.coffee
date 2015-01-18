@@ -20,10 +20,10 @@ class Effect
     switch id
       when 1, 35, 104 then new NoEffect(id)
       
-      when 254, 263 then new DualEffect [(new RecoilEffect id), (new StatusAilmentEffect id, chance)]
-      when 78 then new DualEffect [(new MultiHitEffect id), (new StatusAilmentEffect id, chance)]
-      when 274, 275, 276 then new DualEffect [(new ConditionEffect id, chance), (new StatusAilmentEffect id, chance)]
-      when 201, 210 then new DualEffect [(new CritRateEffect id), (new StatusAilmentEffect id, chance)]
+      when 254, 263 then new DualEffect id, [(new RecoilEffect id), (new StatusAilmentEffect id, chance)]
+      when 78 then new DualEffect id, [(new MultiHitEffect id), (new StatusAilmentEffect id, chance)]
+      when 274, 275, 276 then new DualEffect id, [(new ConditionEffect id, chance), (new StatusAilmentEffect id, chance)]
+      when 201, 210 then new DualEffect id, [(new CritRateEffect id), (new StatusAilmentEffect id, chance)]
 
       # Status Ailments - Also 126
       when 3, 5, 6, 7, 153, 203, 261 then new StatusAilmentEffect(id, chance)

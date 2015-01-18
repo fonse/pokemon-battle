@@ -1,7 +1,7 @@
 DefaultEffect = require './defaultEffect'
 
 class DualEffect extends DefaultEffect
-  constructor: (@effects) ->
+  constructor: (@id, @effects) ->
 
   power: (base) -> base # No dual-effect attack has this
   effectiveness: (attacker, defender) -> this.multiply (effect.effectiveness attacker, defender for effect in @effects)

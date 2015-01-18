@@ -1,7 +1,7 @@
 csv = require 'csv'
 fs = require 'fs'
 
-path = process.argv[2] ? __dirname + '/../pokedex/pokedex/data/csv'
+path = process.argv[2] ? __dirname + '/pokedex/pokedex/data/csv'
 options = { delimiter: ',', escape: '"', columns: true }
 
 language = '9'
