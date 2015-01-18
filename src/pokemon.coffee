@@ -140,6 +140,7 @@ class Pokemon
   whenSwitchedOut: -> 
     @move = null
     @ailment.whenSwitchedOut this if @ailment
+    @conditions = {}
 
   endTurn: (log) ->
     @ailment.endTurn this, log if @ailment?

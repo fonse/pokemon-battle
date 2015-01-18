@@ -2,6 +2,7 @@ class StatusAilment
   inflict: (pokemon, log) ->
     key = @constructor.name
     pokemon.conditions[key] = this
+    this.whenInflicted pokemon, log
 
   isInflicted: (pokemon) ->
     key = @constructor.name
@@ -11,6 +12,7 @@ class StatusAilment
     key = @constructor.name
     delete pokemon.conditions[key]
 
+  whenInflicted: (pokemon, log) ->
   canAttack: (pokemon, log) -> true
   endTurn: (pokemon, log) ->
 

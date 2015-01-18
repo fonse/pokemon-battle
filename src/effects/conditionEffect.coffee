@@ -1,10 +1,12 @@
 DefaultEffect = require './defaultEffect'
 FlinchCondition = require '../conditions/flinchCondition'
+ConfusionCondition = require '../conditions/confusionCondition'
 
 class ConditionEffect extends DefaultEffect
   condition: () ->
     switch @id
       when 32, 147, 151, 274, 275, 276 then new FlinchCondition
+      when 77, 268, 338 then new ConfusionCondition
 
   buildMultiplier: (attacker) ->
     condition = this.condition()
@@ -12,7 +14,10 @@ class ConditionEffect extends DefaultEffect
   
   battleMultiplier: (attacker, defender, damage, lethal) ->
     condition = this.condition()
-    return condition.battleMultiplier attacker, defender, @chance
+    unless condition.isInflicted(defender)
+      return condition.battleMultiplier attacker, defender, @chance
+    else
+      return 1
   
   afterDamage: (attacker, defender, damage, log) ->
     return unless defender.isAlive()
