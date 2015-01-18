@@ -2,12 +2,21 @@ Type = require './type'
 Move = require './move'
 Pokemon = require './pokemon'
 Log = require './log'
+DamageCalculator = require './damageCalculator'
 
 class Battle
   constructor: (@trainer1, @trainer2) ->
+    @damageCalculator = new DamageCalculator
+
     @trainer1.firstPokemon()
     @trainer2.firstPokemon()
+
+    for pokemon in @trainer1.team
+      pokemon.subscribeToFaint(this)
   
+    for pokemon in @trainer2.team
+      pokemon.subscribeToFaint(this)
+
   start: ->
     @log = new Log
     @winner = null
@@ -26,13 +35,9 @@ class Battle
     pokemon2 = @trainer2.mainPokemon
 
     # Choose moves
-    this.chooseMove pokemon1, pokemon2
-    this.chooseMove pokemon2, pokemon1
+    pokemon1.chooseMove pokemon2
+    pokemon2.chooseMove pokemon1
     throw new Error("One of the pokemon doesn't have an attack move.") unless pokemon1.move? and pokemon2.move?
-    
-    # Clear temp status
-    pokemon1.flinch = false
-    pokemon2.flinch = false
     
     # Switch out pokemon?
     newPokemon1 = pokemon1.trainer.maybeSwitchOut pokemon1, pokemon2, @log
@@ -56,94 +61,66 @@ class Battle
       defender = pokemon1
     
     # Perform the attacks
-    defenderFainted = this.doAttack attacker, defender if attacker.move?
-    attacker = attacker.trainer.mainPokemon # Moves like U-turn can force a switch
+    this.doAttack attacker, defender if attacker.move?
     
-    this.doAttack defender, attacker if defender.move? and not defenderFainted
+    attacker = attacker.trainer.mainPokemon # Moves like U-turn can force a switch
+    defender = defender.trainer.mainPokemon # Defending pokemon could have fainted
+    
+    this.doAttack defender, attacker if defender.move? and not @winner
+
+    attacker.endTurn(@log) if attacker.isAlive() and not @winner
+    defender.endTurn(@log) if defender.isAlive() and not @winner
+
     @log.endTurn()
   
   doAttack: (attacker, defender) ->
-    if attacker.flinch
-      @log.message attacker.trainerAndName() + " flinched and couldn't move!"
-      return false
-  
-    @log.message attacker.trainerAndName() + " used " + attacker.move.name + "!"
-    effectiveness = attacker.move.effectiveness attacker, defender
-    miss = false
+    if attacker.canAttack @log
+      @log.message attacker.trainerAndName() + " used " + attacker.move.name + "!"
+      effectiveness = attacker.move.effectiveness attacker, defender
+      miss = false
 
-    if effectiveness == 0
-      @log.message "It doesn't affect " + defender.trainerAndName() + "..."
-      miss = true
-
-    else
-      if Math.random() * 100 > attacker.move.accuracy
-        @log.message attacker.trainerAndName() + "'s attack missed!"
+      if effectiveness == 0
+        @log.message "It doesn't affect " + defender.trainerAndName() + "..."
         miss = true
-      
+
       else
-        hits = attacker.move.hits()
-        hit = 0
-        miss = false
+        if Math.random() * 100 > attacker.move.accuracy
+          @log.message attacker.trainerAndName() + "'s attack missed!"
+          miss = true
         
-        attackerFainted = false
-        defenderFainted = false
-        until (hit++ == hits) or attackerFainted or defenderFainted
-          critical = Math.random() < this.criticalChance attacker.move.criticalRateStage()
-          random = Math.random() * (1 - 0.85) + 0.85
-          damage = this.calculateDamage attacker.move, attacker, defender, critical, random
-          damage = defender.hp if damage > defender.hp
+        else
+          hits = attacker.move.hits()
+          hit = 0
+          miss = false
           
-          @log.message "It's a critical hit!" if critical
-          @log.message "It's super effective!" if effectiveness > 1
-          @log.message "It's not very effective..." if effectiveness < 1
-          @log.message defender.trainerAndName() + " is hit for " + damage + " HP (" + Math.round(damage / defender.maxHp * 100) + "%)"
-          
-          defender.hp -= damage
-          defenderFainted = this.checkFaint defender
+          @stopMultiHit = false
+          until (hit++ == hits) or @stopMultiHit
+            critical = Math.random() < this.criticalChance attacker.move.criticalRateStage()
+            random = Math.random() * (1 - 0.85) + 0.85
+
+            @log.message "It's a critical hit!" if critical
+            @log.message "It's super effective!" if effectiveness > 1
+            @log.message "It's not very effective..." if effectiveness < 1
             
-          attacker.move.afterDamage attacker, defender, damage, @log
-          attackerFainted = this.checkFaint attacker
-          
-    if miss
-      attacker.move.afterMiss attacker, defender, @log
-      attackerFainted = this.checkFaint attacker
-    
-    if defenderFainted and not @winner?
-      defender.trainer.switchPokemon attacker, @log
-      
-    if attackerFainted and not @winner?
-      attacker.trainer.switchPokemon defender, @log
+            damage = @damageCalculator.calculate attacker.move, attacker, defender, critical, random
+            defender.takeDamage damage, "%(pokemon) was hit for %(damage)", @log
+            
+            attacker.move.afterDamage attacker, defender, damage, @log
+            
+      if miss
+        attacker.move.afterMiss attacker, defender, @log
     
     @log.endAttack()
-    return defenderFainted
-    
-  checkFaint: (pokemon) ->
-    result = false
-    if (pokemon.hp <= 0)
-      pokemon.hp = 0
-      @log.message pokemon.trainerAndName() + " fainted!"
-      result = true
-    
-    if pokemon.trainer.ablePokemon().length == 0
-      otherTrainer = if pokemon.trainer == @trainer1 then @trainer2 else @trainer1
-      @winner = otherTrainer unless @winner
-    
-    return result
   
-  chooseMove: (attacker, defender) ->
-    bestMove = null
-    bestDamage = -1
-    for move in attacker.moves
-      damage = this.calculateDamage move, attacker, defender
-      damage = defender.hp if defender.hp < damage 
-      
-      damage *= move.battleMultiplier attacker, defender, damage
-      
-      if damage > bestDamage
-        bestMove = move
-        bestDamage = damage
-    
-    attacker.move = bestMove
+  notifyFaint: (pokemon) ->
+    @log.message pokemon.trainerAndName() + " fainted!"
+    @stopMultiHit = true
+
+    otherTrainer = if pokemon.trainer == @trainer1 then @trainer2 else @trainer1
+    if pokemon.trainer.ablePokemon().length == 0
+      @winner = otherTrainer unless @winner
+
+    pokemon.trainer.switchPokemon otherTrainer.mainPokemon, @log unless @winner
   
   criticalChance: (stage) ->
     switch stage
@@ -152,15 +129,5 @@ class Battle
       when 2 then 1/2
       else 1
   
-  calculateDamage: (move, attacker, defender, critical = false, random = 0.9) ->
-    attack = attacker.stat move.attackStat(), {ingoreNegative: critical}
-    defense = defender.stat move.defenseStat(), {ingorePositive: critical}
-    
-    stab = if move.type.id in (attacker.types.map (type) -> type.id) then 1.5 else 1
-    type = move.effectiveness attacker, defender
-    crit = if critical then 1.5 else 1
-    
-    return Math.round (0.88 * (attack / defense) * move.power(attacker, defender) + 2 ) * stab * type * crit * random
-    
 
 module.exports = Battle

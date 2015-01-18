@@ -4,7 +4,7 @@ Move = require '../src/move'
 Effect = require '../src/effect'
 
 
-path = process.argv[2] ? __dirname + '/csv'
+path = process.argv[2] ? __dirname +  '/pokedex/pokedex/data/csv'
 options = { delimiter: ',', escape: '"', columns: true }
 
 printEffect = (effect) ->

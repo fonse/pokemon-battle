@@ -11,7 +11,7 @@ class HealEffect extends DefaultEffect
       when 4, 348 then 1.25
       when 353 then 1.5
   
-  battleMultiplier: (attacker, defender, damage, kill) ->
+  battleMultiplier: (attacker, defender, damage, lethal) ->
     if attacker.hp < attacker.maxHp
         return 1 + this.heal(damage) / (attacker.maxHp - attacker.hp) / 1.5
     else
