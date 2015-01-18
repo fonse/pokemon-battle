@@ -19,7 +19,5 @@ class RecoilEffect extends DefaultEffect
   afterDamage: (attacker, defender, damage, log) ->
     attacker.takeDamage (this.recoil damage, attacker), "%(pokemon) was hurt %(damage) by recoil!", log
 
-  fullSupport: -> @id not in [254, 263]
-  
   
 module.exports = RecoilEffect

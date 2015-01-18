@@ -1,3 +1,0 @@
-[submodule "pokedex"]
-	path = pokedex
-	url = git@github.com:veekun/pokedex.git

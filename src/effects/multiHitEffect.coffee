@@ -19,7 +19,5 @@ class MultiHitEffect extends DefaultEffect
     else
       return 1
       
-  fullSupport: -> @id not in [78]
-  
 
 module.exports = MultiHitEffect
