@@ -1,4 +1,5 @@
 Type = require './type'
+Move = require './move'
 DamageCalculator = require './damageCalculator'
 
 class Strategy
